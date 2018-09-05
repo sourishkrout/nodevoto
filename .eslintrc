@@ -5,9 +5,6 @@
 
   "parserOptions": {
     "ecmaVersion": 8,
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
   },
 
   "globals": {
@@ -15,6 +12,7 @@
     // are used in this app's backend code (including the globalIds of models):
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     "Promise": true,
+    "Map": true,
     "_": true,
     "async": true,
     "before": true,

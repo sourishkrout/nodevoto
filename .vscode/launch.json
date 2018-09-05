@@ -23,7 +23,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch nodevoto voting",
             "program": "${workspaceFolder}/nodevoto-voting-svc/server.js",
             "env": {
                 "GRPC_PORT": "8081"

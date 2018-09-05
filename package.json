@@ -4,7 +4,9 @@
   "description": "Node.js implementation of emojivoto",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run lint && npm run unit-tests && echo 'done.'",
+    "unit-tests": "node_modules/mocha/bin/_mocha nodevoto-voting-svc/**/*.test.js",
+    "lint": "node_modules/.bin/eslint . --max-warnings=0 --report-unused-disable-directives"
   },
   "author": "Sebastian Tiedtke <sebastiantiedtke@gmail.com>",
   "license": "Apache-2.0",
