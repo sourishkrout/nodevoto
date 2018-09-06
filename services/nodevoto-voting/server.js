@@ -1,9 +1,9 @@
 'use strict';
 
-const api = require('./lib/api');
+const api = require('./api');
 const grpc = require('grpc');
-const logger = require('./lib/logger');
-const Poll = require('./lib/Poll');
+const logger = require('../../lib/logger');
+const Poll = require('./Poll');
 
 const GRPC_PORT = process.env.GRPC_PORT !== 'undefined' ? process.env.GRPC_PORT : null;
 

@@ -15,7 +15,7 @@
                 "--timeout",
                 "999999",
                 "--colors",
-                "${workspaceFolder}/nodevoto-voting-svc/test/**.test.js"
+                "${workspaceFolder}/test/**/*.test.js"
             ],
             "env": {
                 "NODE_ENV": "test"
@@ -27,7 +27,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch nodevoto voting",
-            "program": "${workspaceFolder}/nodevoto-voting-svc/server.js",
+            "program": "${workspaceFolder}/lib/services/nodevoto-voting/server.js",
             "env": {
                 "GRPC_PORT": "8081"
             },

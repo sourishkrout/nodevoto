@@ -1,6 +1,6 @@
 'use strict';
-const api = require('../lib/api');
-const Poll = require('../lib/Poll');
+const api = require('../../services/nodevoto-voting/api');
+const Poll = require('../../services/nodevoto-voting/Poll');
 
 const grpc = require('grpc');
 

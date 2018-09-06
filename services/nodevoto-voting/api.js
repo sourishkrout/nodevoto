@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const emoji = require('./emoji.json');
+const emoji = require('../../lib/emoji.json');
 const protoLoader = require('@grpc/proto-loader');
 
 class PollServiceServer {

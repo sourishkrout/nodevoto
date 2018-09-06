@@ -1,6 +1,6 @@
 'use strict';
 const expect = require('chai').expect;
-const Poll = require('../lib/Poll');
+const Poll = require('../../services/nodevoto-voting/Poll');
 
 describe('Poll', () => {
   let poll;

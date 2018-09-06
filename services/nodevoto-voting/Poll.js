@@ -1,6 +1,6 @@
 'use strict';
 
-const logger = require('./logger');
+const logger = require('../../lib/logger');
 
 class Poll {
   constructor() {
