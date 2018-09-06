@@ -11,7 +11,7 @@ if (GRPC_PORT) {
   const server = new grpc.Server();
   const poll = new Poll();
 
-  api.NewGrpcServer(server, poll).then(() => {
+  api.newGrpcServer(server, poll).then(() => {
     server.bind(`0.0.0.0:${GRPC_PORT}`, grpc.ServerCredentials.createInsecure());
     logger.info(`Starting grpc server on GRPC_PORT=[${GRPC_PORT}]`);
     server.start();

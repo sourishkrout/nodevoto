@@ -46,7 +46,7 @@ class PollServiceServer {
   }
 }
 
-module.exports.NewGrpcServer = async (grpcServer, poll) => {
+module.exports.newGrpcServer = async (grpcServer, poll) => {
   const PROTO_PATH = path.join(__dirname + '../../../proto/Voting.proto');
 
   let descriptor = await protoLoader.load(
@@ -64,4 +64,6 @@ module.exports.NewGrpcServer = async (grpcServer, poll) => {
   let implementations = pollSrv.mapRPC(votingSrv);
 
   grpcServer.addService(votingSrv, implementations);
+
+  return implementations;
 };

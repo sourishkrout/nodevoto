@@ -17,6 +17,9 @@
                 "--colors",
                 "${workspaceFolder}/nodevoto-voting-svc/test/**.test.js"
             ],
+            "env": {
+                "NODE_ENV": "test"
+            },
             "internalConsoleOptions": "openOnSessionStart",
             "outputCapture": "std" // https://github.com/Microsoft/vscode/issues/34702#issuecomment-331237388
         },

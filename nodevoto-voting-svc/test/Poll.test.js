@@ -4,13 +4,11 @@ const Poll = require('../lib/Poll');
 
 describe('Poll', () => {
   let poll;
-  let newPoll = async() => {
+  beforeEach(async() => {
     poll = new Poll();
-  };
+  });
 
   describe('#vote', () => {
-
-    before(newPoll);
 
     it('should increment counter counter to three', async() => {
       let chosen = ':three_votes:';
@@ -28,8 +26,6 @@ describe('Poll', () => {
   });
 
   describe('#getResults', () => {
-
-    before(newPoll);
 
     it('should return desc ordered leaderboard', async() => {
       [':first:', ':mid:', ':first:',
