@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run lint && npm run unit-tests && echo 'done.'",
-    "unit-tests": "node_modules/mocha/bin/_mocha test/**/*.test.js",
+    "unit-tests": "NODE_ENV=test node_modules/mocha/bin/_mocha test/**/*.test.js",
     "lint": "node_modules/.bin/eslint . --max-warnings=0 --report-unused-disable-directives"
   },
   "author": "Sebastian Tiedtke <sebastiantiedtke@gmail.com>",
