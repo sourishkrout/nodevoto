@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const emoji = require('../../lib/emoji.json');
+const shortcode = require('../../lib/shortcode.json');
 const protoLoader = require('@grpc/proto-loader');
 
 class PollServiceServer {
@@ -24,7 +24,7 @@ class PollServiceServer {
       let operation = new String(rpc[0]);
       let impl = {};
       impl[operation] = (call, callback) => {
-        this.vote(emoji[operation]);
+        this.vote(shortcode[operation]);
         return callback();
       };
 
