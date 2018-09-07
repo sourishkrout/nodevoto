@@ -13,8 +13,8 @@ describe('Emoji', () => {
     it('should return one entry for specific shortcode', async() => {
       let _em = emoji.getByShortcode(':skull_and_crossbones:');
 
-      expect(_em.Unicode).equals("☠️");
-      expect(_em.Shortcode).equals(':skull_and_crossbones:');
+      expect(_em.unicode).equals('☠️');
+      expect(_em.shortcode).equals(':skull_and_crossbones:');
     });
 
     it('should return null when shortcode does not match entries', async() => {
@@ -34,8 +34,8 @@ describe('Emoji', () => {
       let results = emoji.getList();
 
       expect(results).not.equal(null);
-      expect(results[10].Unicode).equal('\u2620\ufe0f');
-      expect(results[10].Shortcode).equal(':skull_and_crossbones:');
+      expect(results[10].unicode).equal('\u2620\ufe0f');
+      expect(results[10].shortcode).equal(':skull_and_crossbones:');
       expect(results.length).equal(100);
     });
 
