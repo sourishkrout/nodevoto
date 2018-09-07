@@ -6,14 +6,17 @@
   "scripts": {
     "test": "npm run lint && npm run unit-tests && echo 'done.'",
     "unit-tests": "NODE_ENV=test node_modules/mocha/bin/_mocha test/**/*.test.js",
-    "lint": "node_modules/.bin/eslint . --max-warnings=0 --report-unused-disable-directives"
+    "lint": "node_modules/.bin/eslint . --max-warnings=0 --report-unused-disable-directives",
+    "generateEmojiCodeMap": "node scripts/generateEmojiCodeMap.js"
   },
   "author": "Sebastian Tiedtke <sebastiantiedtke@gmail.com>",
   "license": "Apache-2.0",
   "dependencies": {
     "@grpc/proto-loader": "^0.3.0",
     "chai": "^4.1.2",
+    "express": "^4.16.3",
     "grpc": "^1.14.1",
+    "superagent": "^3.8.3",
     "winston": "^3.1.0"
   },
   "devDependencies": {
