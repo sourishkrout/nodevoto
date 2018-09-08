@@ -120,12 +120,12 @@ class Emoji {
     let found = this.inMemAllEmoji.filter(_em => {
       return _em.shortcode === shortcode;
     });
-    //logger.info(`Voted for [${choice}], which now has a total of [${newval}] votes`);
+    logger.info(`Retrieved emoji for shortcode [${shortcode}], which yielded [${found.length}] match(es).`);
     return found.length > 0 ? found[0] : null;
   }
 
   getList() {
-    //logger.info(`Returning results with [${items.length}] total entries based on [${totalVotes}] total votes.`);
+    logger.info(`Returning results with [${this.inMemAllEmoji.length}] total entries.`);
     return this.inMemAllEmoji;
   }
 }
