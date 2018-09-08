@@ -5,7 +5,7 @@ const emojiCodeMap = require('../../lib/emoji_codemap.json');
 
 class Emoji {
   constructor() {
-    let top100Emoji = [
+    this.top100Emoji = [
       ':poop:',
       ':joy:',
       ':sunglasses:',
@@ -108,7 +108,7 @@ class Emoji {
       ':floppy_disk:',
     ];
 
-    this.inMemAllEmoji = top100Emoji.map(_em => {
+    this.inMemAllEmoji = this.top100Emoji.map(_em => {
       return {
         unicode: emojiCodeMap[_em],
         shortcode: _em
