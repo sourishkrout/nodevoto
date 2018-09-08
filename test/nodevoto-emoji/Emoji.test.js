@@ -60,7 +60,7 @@ describe('Emoji', () => {
 
       let counted = list.reduce((prev, curr) => {
         let count = prev.get(curr.unicode) || 0;
-        prev.set(curr.unicode, ++count)
+        prev.set(curr.unicode, ++count);
         return prev;
       }, new Map());
 

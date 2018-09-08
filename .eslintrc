@@ -12,6 +12,7 @@
     // are used in this app's backend code (including the globalIds of models):
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     "Promise": true,
+    "Set": true,
     "Map": true,
     "_": true,
     "async": true,
