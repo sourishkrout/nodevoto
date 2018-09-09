@@ -6,8 +6,8 @@ and tracks votes received on a leaderboard. May the best emoji win.
 The application is composed of the following 3 services:
 
 * [nodevoto-web](services/nodevoto-web/): Web frontend and REST API
-* [nodevoto-emoji-svc](services/nodevoto-emoji-svc/): gRPC API for finding and listing emoji
-* [nodevoto-voting-svc](services/nodevoto-voting-svc/): gRPC API for voting and leaderboard
+* [nodevoto-emoji-svc](services/nodevoto-emoji/): gRPC API for finding and listing emoji
+* [nodevoto-voting-svc](services/nodevoto-voting/): gRPC API for voting and leaderboard
 
 ![Nodevoto Topology](assets/emojivoto-topology.png "Emojivoto Topology")
 
