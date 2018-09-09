@@ -39,7 +39,6 @@
             "type": "node",
             "request": "launch",
             "name": "Launch nodevoto emoji",
-            "name": "Launch nodevoto emoji",
             "program": "${workspaceFolder}/services/nodevoto-emoji/server.js",
             "env": {
                 "GRPC_PORT": "8082"
