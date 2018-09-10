@@ -91,7 +91,7 @@ class App {
       vote = wrapOp(this.votingClient[op].bind(this.votingClient));
     } else if (emojiShortcode === ':poop:') {
       vote = wrapOp(this.votingClient.VotePoop.bind(this.votingClient));
-    } 
+    }
 
     try {
       await vote();

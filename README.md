@@ -48,7 +48,7 @@ export VOTINGSVC_HOST=localhost:8081
 export EMOJISVC_HOST=localhost:8082
 
 # if you ran yarn webpack
-export INDEX_BUNDLE=nodevoto-web/webapp/dist/index_bundle.js
+export INDEX_BUNDLE=services/nodevoto-web/webapp/dist/index_bundle.js
 
 # if you ran yarn webpack-dev-server
 export WEBPACK_DEV_SERVER=http://localhost:8083

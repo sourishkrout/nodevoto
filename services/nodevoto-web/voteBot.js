@@ -21,7 +21,8 @@ async function vote(webURL, choice) {
 
 async function getShortcodes(webURL) {
   let url = `${webURL}/api/list`;
-  let response, shortcodes;
+  let response;
+  let shortcodes;
 
   try {
     response = await superget(url);
