@@ -10,7 +10,8 @@
     "generateEmojiCodeMap": "node scripts/generateEmojiCodeMap.js",
     "voting": "node services/nodevoto-voting/server.js",
     "emoji": "node services/nodevoto-emoji/server.js",
-    "web": "node services/nodevoto-web/server.js"
+    "web": "node services/nodevoto-web/server.js",
+    "voteBot": "node services/nodevoto-web/voteBot.js"
   },
   "author": "Sebastian Tiedtke <sebastiantiedtke@gmail.com>",
   "license": "Apache-2.0",

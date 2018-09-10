@@ -28,7 +28,7 @@ GRPC_PORT=8081 npm run voting
 GRPC_PORT=8082 npm run emoji
 ```
 
-[In a separate teminal window] Bundle the frontend assets (BELOW HERE WORK IN PROGRESS)
+[In a separate teminal window] Bundle the frontend assets
 ```
 cd nodevoto-web/webapp
 yarn install
@@ -55,5 +55,5 @@ npm run web
 [Optional] Start the vote bot for automatic traffic generation.
 ```
 export WEB_HOST=localhost:8080
-npm run vote-bot
+npm run voteBot
 ```
