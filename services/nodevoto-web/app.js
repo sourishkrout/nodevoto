@@ -53,10 +53,20 @@ class App {
   }
 
   async handleVoteEmoji(req, res) {
-    let emojiShortcode = req.query['choice'], vote;
+    let emojiShortcode = req.query['choice'];
+    if (emojiShortcode === undefined || emojiShortcode === '') {
+      logger.error(`Emoji choice [${emojiShortcode}] is mandatory`);
+      return res.status(400).end();
+    }
+
+    let vote;
     const findByShortcode = wrapOp(this.emojiClient.FindByShortcode.bind(this.emojiClient));
 
     let response = await findByShortcode({ Shortcode: emojiShortcode });
+    if (response.Emoji === null) {
+      logger.error(`Choosen emoji shortcode [${emojiShortcode}] doesnt exist`);
+      return res.status(400).end();
+    }
 
     let operation = Object.entries(shortcode).filter(sc => {
       return sc[1] === emojiShortcode;
