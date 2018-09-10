@@ -15,6 +15,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@grpc/proto-loader": "^0.3.0",
+    "body-parser": "^1.18.3",
     "chai": "^4.1.2",
     "express": "^4.16.3",
     "grpc": "^1.14.1",

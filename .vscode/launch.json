@@ -26,6 +26,21 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Launch nodevoto web",
+            "program": "${workspaceFolder}/services/nodevoto-web/server.js",
+            "env": {
+                "WEB_PORT": "8080",
+                "WEBPACK_DEV_SERVER": "http://localhost:8083",
+                "VOTINGSVC_HOST": "localhost:8081",
+                "EMOJISVC_HOST": "localhost:8082",
+                "INDEX_BUNDLE": "services/nodevoto-web/webapp/dist/index_bundle.js"
+            },
+            "internalConsoleOptions": "openOnSessionStart",
+            "outputCapture": "std" // https://github.com/Microsoft/vscode/issues/34702#issuecomment-331237388
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Launch nodevoto voting",
             "program": "${workspaceFolder}/services/nodevoto-voting/server.js",
             "env": {
