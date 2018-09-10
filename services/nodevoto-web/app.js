@@ -39,21 +39,28 @@ class App {
   async handleLeaderboard(req, res) {
     const findByShortcode = wrapOp(this.emojiClient.FindByShortcode.bind(this.emojiClient));
     const getResults = wrapOp(this.votingClient.Results.bind(this.votingClient));
-    let response = await getResults();
 
-    let list = response.results.map(async (item) => {
-      return findByShortcode({ Shortcode: item.Shortcode }).then(r => {
-        return { 'shortcode': r.Emoji.shortcode,
-          'unicode': r.Emoji.unicode,
-          'votes': item.Votes };
+    try {
+      let response = await getResults();
+
+      let list = response.results.map(async (item) => {
+        return findByShortcode({ Shortcode: item.Shortcode }).then(r => {
+          return { 'shortcode': r.Emoji.shortcode,
+            'unicode': r.Emoji.unicode,
+            'votes': item.Votes };
+        });
       });
-    });
 
-    return res.json(await Promise.all(list));
+      return res.json(await Promise.all(list));
+    } catch (err) {
+      logger.error(err);
+      return res.status(500).json(err.message);
+    }
   }
 
   async handleVoteEmoji(req, res) {
     let emojiShortcode = req.query['choice'];
+    let response;
     if (emojiShortcode === undefined || emojiShortcode === '') {
       logger.error(`Emoji choice [${emojiShortcode}] is mandatory`);
       return res.status(400).end();
@@ -62,7 +69,13 @@ class App {
     let vote;
     const findByShortcode = wrapOp(this.emojiClient.FindByShortcode.bind(this.emojiClient));
 
-    let response = await findByShortcode({ Shortcode: emojiShortcode });
+    try {
+      response = await findByShortcode({ Shortcode: emojiShortcode });
+    } catch (err) {
+      logger.error(err);
+      return res.status(500).json(err.message);
+    }
+
     if (response.Emoji === null) {
       logger.error(`Choosen emoji shortcode [${emojiShortcode}] doesnt exist`);
       return res.status(400).end();
@@ -84,13 +97,21 @@ class App {
       await vote();
       return res.end();
     } catch (err) {
-      return res.status(500).end(err.details);
+      logger.error(err);
+      return res.status(500).json(err.message);
     }
   }
 
   async handleListEmoji(req, res) {
     const listAll = wrapOp(this.emojiClient.ListAll.bind(this.emojiClient));
-    let emoji = await listAll();
+    let emoji;
+
+    try {
+      emoji = await listAll();
+    } catch (err) {
+      logger.error(err);
+      return res.status(500).json(err.message);
+    }
 
     return res.json(emoji.list);
   }
