@@ -18,6 +18,11 @@ The application is composed of the following 3 services:
 This app is written with React and bundled with webpack.
 Use the following to run the nodevoto go services and develop on the frontend.
 
+Install npm dependencies
+```
+npm install .
+```
+
 Start the voting service
 ```
 GRPC_PORT=8081 npm run voting
