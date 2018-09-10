@@ -26,6 +26,17 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Launch vote-bot web",
+            "program": "${workspaceFolder}/services/nodevoto-web/voteBot.js",
+            "env": {
+                "WEB_HOST": "localhost:8080",
+            },
+            "internalConsoleOptions": "openOnSessionStart",
+            "outputCapture": "std" // https://github.com/Microsoft/vscode/issues/34702#issuecomment-331237388
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Launch nodevoto web",
             "program": "${workspaceFolder}/services/nodevoto-web/server.js",
             "env": {

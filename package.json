@@ -9,7 +9,8 @@
     "lint": "node_modules/.bin/eslint . --max-warnings=0 --report-unused-disable-directives",
     "generateEmojiCodeMap": "node scripts/generateEmojiCodeMap.js",
     "voting": "node services/nodevoto-voting/server.js",
-    "emoji": "node services/nodevoto-emoji/server.js"
+    "emoji": "node services/nodevoto-emoji/server.js",
+    "web": "node services/nodevoto-web/server.js"
   },
   "author": "Sebastian Tiedtke <sebastiantiedtke@gmail.com>",
   "license": "Apache-2.0",

@@ -53,7 +53,7 @@ class App {
   }
 
   async handleVoteEmoji(req, res) {
-    let emojiShortcode = req.query['choice'];
+    let emojiShortcode = req.query['choice'], vote;
     const findByShortcode = wrapOp(this.emojiClient.FindByShortcode.bind(this.emojiClient));
 
     let response = await findByShortcode({ Shortcode: emojiShortcode });
@@ -62,12 +62,20 @@ class App {
       return sc[1] === emojiShortcode;
     });
 
-    let op = operation[0][0];
-    let vote = wrapOp(this.votingClient[op].bind(this.votingClient));
+    let op = operation.length > 0 ? operation[0][0] : null;
 
-    await vote();
+    if (op !== null && this.votingClient[op] !== undefined) {
+      vote = wrapOp(this.votingClient[op].bind(this.votingClient));
+    } else if (emojiShortcode === ':poop:') {
+      vote = wrapOp(this.votingClient.VotePoop.bind(this.votingClient));
+    } 
 
-    return res.end();
+    try {
+      await vote();
+      return res.end();
+    } catch (err) {
+      return res.status(500).end(err.details);
+    }
   }
 
   async handleListEmoji(req, res) {
