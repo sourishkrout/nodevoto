@@ -46,6 +46,22 @@ linkerd inject nodevoto.yml | kubectl apply -f -
 ```
 minikube -n nodevoto service web-svc
 ```
+### Generating some traffic
+
+The `VoteBot` service can generate some traffic for you. It votes on emoji
+"randomly" as follows:
+- It votes for :doughnut: 15% of the time.
+- It votes for :poop: 20% of the time.
+- When not voting for :doughnut: or :poop:, it picks an emoji at random
+
+If you're running the app using the instructions above, the VoteBot will have
+been deployed and will start sending traffic to the vote endpoint.
+
+If you'd like to run the bot manually:
+```
+export WEB_HOST=localhost:8080 # replace with your web location
+npm run voteBot
+```
 ## Local Development
 
 ### Nodevoto webapp
