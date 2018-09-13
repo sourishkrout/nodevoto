@@ -11,6 +11,41 @@ The application is composed of the following 3 services:
 
 ![Nodevoto Topology](assets/emojivoto-topology.png "Emojivoto Topology")
 
+## Running
+
+### In Minikube
+
+Deploy the application to Minikube using the Linkerd2 service mesh.
+
+1. Install the `linkerd` CLI
+
+```
+curl https://run.linkerd.io/install | sh
+```
+
+2. Install Linkerd2
+
+```
+linkerd install | kubectl apply -f -
+```
+
+3. View the dashboard!
+
+```
+linkerd dashboard
+```
+
+4. Inject, Deploy, and Enjoy
+
+```
+linkerd inject nodevoto.yml | kubectl apply -f -
+```
+
+5. Use the app!
+
+```
+minikube -n nodevoto service web-svc
+```
 ## Local Development
 
 ### Nodevoto webapp

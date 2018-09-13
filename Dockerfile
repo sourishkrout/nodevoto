@@ -19,4 +19,10 @@ WORKDIR /opt/nodevoto
 RUN rm -rf node_modules
 RUN npm install .
 
+WORKDIR /opt/nodevoto/services/nodevoto-web
+
+RUN yarn install
+
+WORKDIR /opt/nodevoto
+
 ENTRYPOINT npm run $SVC_NAME

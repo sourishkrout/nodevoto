@@ -1,0 +1,179 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nodevoto
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: emoji
+  namespace: nodevoto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emoji-svc
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: emoji-svc
+    spec:
+      containers:
+      - env:
+        - name: GRPC_PORT
+          value: "8080"
+        - name: SVC_NAME
+          value: emoji
+        image: sourishkrout/nodevoto:latest
+        name: emoji-svc
+        ports:
+        - containerPort: 8080
+          name: grpc
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: emoji-svc
+  namespace: nodevoto
+spec:
+  selector:
+    app: emoji-svc
+  clusterIP: None
+  ports:
+  - name: grpc
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: voting
+  namespace: nodevoto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: voting-svc
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: voting-svc
+    spec:
+      containers:
+      - env:
+        - name: GRPC_PORT
+          value: "8080"
+        - name: SVC_NAME
+          value: voting
+        image: sourishkrout/nodevoto:latest
+        name: voting-svc
+        ports:
+        - containerPort: 8080
+          name: grpc
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: voting-svc
+  namespace: nodevoto
+spec:
+  selector:
+    app: voting-svc
+  clusterIP: None
+  ports:
+  - name: grpc
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: web
+  namespace: nodevoto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-svc
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: web-svc
+    spec:
+      containers:
+      - env:
+        - name: WEB_PORT
+          value: "80"
+        - name: EMOJISVC_HOST
+          value: emoji-svc.nodevoto:8080
+        - name: VOTINGSVC_HOST
+          value: voting-svc.nodevoto:8080
+        - name: INDEX_BUNDLE
+          value: services/nodevoto-web/webapp/dist/index_bundle.js
+        - name: SVC_NAME
+          value: web
+        image: sourishkrout/nodevoto:latest
+        name: web-svc
+        ports:
+        - containerPort: 80
+          name: http
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-svc
+  namespace: nodevoto
+spec:
+  type: LoadBalancer
+  selector:
+    app: web-svc
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: vote-bot
+  namespace: nodevoto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vote-bot
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: vote-bot
+    spec:
+      containers:
+      - env:
+        - name: SVC_NAME
+          value: voteBot
+        - name: WEB_HOST
+          value: web-svc.nodevoto:80
+        image: sourishkrout/nodevoto:latest
+        name: vote-bot
+        resources: {}
+status: {}
+---
