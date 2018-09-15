@@ -10,7 +10,7 @@ describe('Poll', () => {
 
   describe('#vote', () => {
 
-    it('should increment counter counter to three', async() => {
+    it('should increment counter to three', async() => {
       let chosen = ':three_votes:';
       for(let i=1; i<=3; i++) {
         poll.vote(chosen);
