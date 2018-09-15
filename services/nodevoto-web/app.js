@@ -36,15 +36,20 @@ class App {
     routes.get('/api/leaderboard', this.handleLeaderboard.bind(this));
   }
 
-  async handleLeaderboard(req, res) {
-    const findByShortcode = wrapOp(this.emojiClient.FindByShortcode.bind(this.emojiClient));
-    const getResults = wrapOp(this.votingClient.Results.bind(this.votingClient));
+  _FindByShortcode(arg) {
+    return wrapOp(this.emojiClient.FindByShortcode.bind(this.emojiClient))(arg);
+  }
 
+  _Results() {
+    return wrapOp(this.votingClient.Results.bind(this.votingClient))();
+  }
+
+  async handleLeaderboard(req, res) {
     try {
-      let response = await getResults();
+      let response = await this._Results();
 
       let list = response.results.map(async (item) => {
-        return findByShortcode({ Shortcode: item.Shortcode }).then(r => {
+        return this._FindByShortcode({ Shortcode: item.Shortcode }).then(r => {
           return { 'shortcode': r.Emoji.shortcode,
             'unicode': r.Emoji.unicode,
             'votes': item.Votes };
@@ -60,17 +65,17 @@ class App {
 
   async handleVoteEmoji(req, res) {
     let emojiShortcode = req.query['choice'];
+
     let response;
+    let vote;
+
     if (emojiShortcode === undefined || emojiShortcode === '') {
       logger.error(`Emoji choice [${emojiShortcode}] is mandatory`);
       return res.status(400).end();
     }
 
-    let vote;
-    const findByShortcode = wrapOp(this.emojiClient.FindByShortcode.bind(this.emojiClient));
-
     try {
-      response = await findByShortcode({ Shortcode: emojiShortcode });
+      response = await this._FindByShortcode({ Shortcode: emojiShortcode });
     } catch (err) {
       logger.error(err);
       return res.status(500).json(err.message);
@@ -89,8 +94,8 @@ class App {
 
     if (op !== null && this.votingClient[op] !== undefined) {
       vote = wrapOp(this.votingClient[op].bind(this.votingClient));
-    } else if (emojiShortcode === ':poop:') {
-      vote = wrapOp(this.votingClient.VotePoop.bind(this.votingClient));
+    } else {
+      logger.error(`Emoji lacks implementation of rpc operation [${op}]`);
     }
 
     try {

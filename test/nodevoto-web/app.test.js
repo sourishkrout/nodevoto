@@ -20,6 +20,9 @@ const testMap = [
   },{
     unicode: '🐷',
     shortcode: ':pig:'
+  },{
+    unicode: '💩',
+    shortcode: ':poop:'
   }
 ];
 
@@ -70,6 +73,10 @@ class VotingMock {
     this.inc(':ghost:');
     return callback(null);
   }
+
+  VotePoop (args, callback) {
+    return callback('Unkown error', null);
+  }
 }
 
 describe('app', () => {
@@ -103,6 +110,16 @@ describe('app', () => {
 
       expect(response.status).equals(200);
       expect(voting.get(':ghost:')).equals(1);
+    });
+
+    it('should reject vote for :poop: emoji', async() => {
+      try {
+        let response = await superget(`http://127.0.0.1:${WEB_PORT}/api/vote?choice=:poop:`);
+        expect(response).to.equal(null);
+      } catch(err) {
+        expect(err.status).equals(500);
+        expect(err.message).equals('Internal Server Error');
+      }
     });
 
     it('should reject vote without choice parameter', async() => {
