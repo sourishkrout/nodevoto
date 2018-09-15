@@ -41,7 +41,7 @@
             "program": "${workspaceFolder}/services/nodevoto-web/server.js",
             "env": {
                 "WEB_PORT": "8080",
-                "WEBPACK_DEV_SERVER": "http://localhost:8083",
+                //"WEBPACK_DEV_SERVER": "http://localhost:8083", // enable for active webapp dev
                 "VOTINGSVC_HOST": "localhost:8081",
                 "EMOJISVC_HOST": "localhost:8082",
                 "INDEX_BUNDLE": "services/nodevoto-web/webapp/dist/index_bundle.js"
