@@ -36,89 +36,86 @@ class App {
     routes.get('/api/leaderboard', this.handleLeaderboard.bind(this));
   }
 
-  _FindByShortcode(arg) {
-    return wrapOp(this.emojiClient.FindByShortcode.bind(this.emojiClient))(arg);
+  async _Results() {
+    let response = await wrapOp(this.votingClient.Results.bind(this.votingClient))();
+    return response.results;
   }
 
-  _Results() {
-    return wrapOp(this.votingClient.Results.bind(this.votingClient))();
+  async _FindByShortcode(arg) {
+    let response = await wrapOp(this.emojiClient.FindByShortcode.bind(this.emojiClient))(arg);
+    return response.Emoji;
+  }
+
+  async _ListAll() {
+    let response = await wrapOp(this.emojiClient.ListAll.bind(this.emojiClient))();
+    return response.list;
+  }
+
+  async handleError(err, res) {
+    logger.error(err);
+    return res.status(500).json(err.message);
   }
 
   async handleLeaderboard(req, res) {
     try {
-      let response = await this._Results();
+      let results = await this._Results();
 
-      let list = response.results.map(async (item) => {
-        return this._FindByShortcode({ Shortcode: item.Shortcode }).then(r => {
-          return { 'shortcode': r.Emoji.shortcode,
-            'unicode': r.Emoji.unicode,
+      let list = results.map(async (item) => {
+        return this._FindByShortcode({ Shortcode: item.Shortcode }).then(emoji => {
+          return { 'shortcode': emoji.shortcode,
+            'unicode': emoji.unicode,
             'votes': item.Votes };
         });
       });
 
       return res.json(await Promise.all(list));
     } catch (err) {
-      logger.error(err);
-      return res.status(500).json(err.message);
+      this.handleError(err);
     }
   }
 
   async handleVoteEmoji(req, res) {
     let emojiShortcode = req.query['choice'];
-
-    let response;
-    let vote;
-
     if (emojiShortcode === undefined || emojiShortcode === '') {
       logger.error(`Emoji choice [${emojiShortcode}] is mandatory`);
       return res.status(400).end();
     }
 
     try {
-      response = await this._FindByShortcode({ Shortcode: emojiShortcode });
+      let match = await this._FindByShortcode({ Shortcode: emojiShortcode });
+
+      if (match === null) {
+        logger.error(`Choosen emoji shortcode [${emojiShortcode}] doesnt exist`);
+        return res.status(400).end();
+      }
+
+      let operation = Object.entries(shortcode).filter(sc => {
+        return sc[1] === emojiShortcode;
+      });
+
+      let op = operation.length > 0 ? operation[0][0] : null;
+
+      if (op !== null && this.votingClient[op] !== undefined) {
+        const vote = wrapOp(this.votingClient[op].bind(this.votingClient));
+        let voted = await vote();
+        return res.json(voted);
+      } else {
+        logger.error(`Emoji lacks implementation of rpc operation [${op}]`);
+        throw new Error('Emoji lacks implementation');
+      }
     } catch (err) {
-      logger.error(err);
-      return res.status(500).json(err.message);
-    }
-
-    if (response.Emoji === null) {
-      logger.error(`Choosen emoji shortcode [${emojiShortcode}] doesnt exist`);
-      return res.status(400).end();
-    }
-
-    let operation = Object.entries(shortcode).filter(sc => {
-      return sc[1] === emojiShortcode;
-    });
-
-    let op = operation.length > 0 ? operation[0][0] : null;
-
-    if (op !== null && this.votingClient[op] !== undefined) {
-      vote = wrapOp(this.votingClient[op].bind(this.votingClient));
-    } else {
-      logger.error(`Emoji lacks implementation of rpc operation [${op}]`);
-    }
-
-    try {
-      await vote();
-      return res.end();
-    } catch (err) {
-      logger.error(err);
-      return res.status(500).json(err.message);
+      return this.handleError(err, res);
     }
   }
 
   async handleListEmoji(req, res) {
-    const listAll = wrapOp(this.emojiClient.ListAll.bind(this.emojiClient));
-    let emoji;
-
     try {
-      emoji = await listAll();
-    } catch (err) {
-      logger.error(err);
-      return res.status(500).json(err.message);
-    }
+      let list = await this._ListAll();
 
-    return res.json(emoji.list);
+      return res.json(list);
+    } catch(err) {
+      return this.handleError(err, res);
+    }
   }
 
   async handleFavicon(req, res) {

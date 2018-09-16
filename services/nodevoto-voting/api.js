@@ -39,7 +39,7 @@ class PollServiceServer {
     };
 
     implementations.VotePoop = (call, callback) => {
-      callback('Unkown error', null);
+      callback(new Error('Unkown error'), null);
     };
 
     return implementations;

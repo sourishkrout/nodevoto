@@ -48,7 +48,7 @@ describe('api', () => {
       try {
         await wrap(impls.VotePoop)();
       } catch(err) {
-        expect(err).equals('Unkown error');
+        expect(err.message).equals('Unkown error');
       }
     });
 
