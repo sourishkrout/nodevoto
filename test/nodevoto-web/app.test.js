@@ -176,4 +176,13 @@ describe('app', () => {
     });
   });
 
+  describe('api docs', () => {
+    it('should serve the swagger based UI for easy API exploration', async() => {
+      let response = await superget(`http://127.0.0.1:${WEB_PORT}/api-docs`);
+
+      expect(response.status).equals(200);
+      expect(response.text).contains('HTML for static distribution bundle build');
+    });
+  });
+
 });

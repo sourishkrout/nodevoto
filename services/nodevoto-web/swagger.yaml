@@ -1,0 +1,89 @@
+swagger: "2.0"
+info:
+  description: "Node.js implementation of emojivoto"
+  version: "1.0.0"
+  title: "nodevoto"
+  termsOfService: ""
+  contact:
+    email: "sebastiantiedtke@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:8080"
+basePath: "/api"
+schemes:
+- "http"
+paths:
+  /leaderboard:
+    get:
+      tags:
+      - "nodevoto"
+      summary: Get leaderboard
+      description: Returns list of emoji in descending order.
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: Ordered list of emoji
+          schema:
+            type: array
+            items:
+              required:
+                - shortcode
+                - unicode
+                - votes
+              properties:
+                shortcode:
+                  type: string
+                unicode:
+                  type: string
+                votes:
+                  type: integer 
+  /vote:
+    get:
+      tags:
+      - "nodevoto"
+      summary: "Cast vote for specific emoji"
+      description: "Cast vote for emoji based on choice parameter provided"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "choice"
+        in: "query"
+        description: "Shortcode of specific emoji to cast vote for"
+        required: true
+        type: "string"
+        enum: [":100:",":bacon:",":balloon:",":basketball_man:",":beach_umbrella:",":beer:",":biking_man:",":bowing_man:",":boy:",":bride_with_veil:",":bulb:",":burrito:",":call_me_hand:",":camping:",":cat2:",":champagne:",":checkered_flag:",":clap:",":cloud_with_rain:",":construction_worker_man:",":crossed_swords:",":crystal_ball:",":dancer:",":dancing_women:",":dog:",":doughnut:",":fax:",":fire:",":flight_departure:",":floppy_disk:",":flushed:",":ghost:",":girl:",":golfing_man:",":guardsman:",":hatching_chick:",":hear_no_evil:",":heart_eyes_cat:",":interrobang:",":iphone:",":jack_o_lantern:",":joy:",":man:",":man_dancing:",":man_facepalming:",":man_in_tuxedo:",":mask:",":massage_woman:",":metal:",":money_mouth_face:",":money_with_wings:",":mountain_snow:",":mrs_claus:",":nerd_face:",":no_good_woman:",":ok_woman:",":older_man:",":pager:",":pig:",":pizza:",":point_up_2:",":policeman:",":poop:",":pray:",":prince:",":princess:",":rabbit:",":rainbow:",":raised_hands:",":raising_hand_woman:",":ramen:",":relaxed:",":rocket:",":running_man:",":santa:",":see_no_evil:",":skier:",":skull_and_crossbones:",":snail:",":speak_no_evil:",":star2:",":steam_locomotive:",":stuck_out_tongue_winking_eye:",":sun_behind_small_cloud:",":sunglasses:",":surfing_man:",":taco:",":tada:",":thumbsup:",":trophy:",":tropical_drink:",":tumbler_glass:",":turkey:",":underage:",":vulcan_salute:",":walking_man:",":wave:",":woman:",":woman_shrugging:",":world_map:"]
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+        400:
+          description: "Choosen emoji shortcode doesnt exist"
+        500:
+          description: "Unknown Error"
+  /list:
+    get:
+      tags:
+      - "nodevoto"
+      summary: "Fetch all emoji supported"
+      description: "Returns list of all emoji supported on the ballot"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: array
+            items:
+              required:
+                - unicode
+                - shortcode
+              properties:
+                unicode:
+                  type: string
+                shortcode:
+                  type: string
+        500:
+          description: "Unknown Error"

@@ -6,6 +6,10 @@ const bodyParser = require('body-parser');
 const logger = require('../../lib/logger');
 const shortcode = require('../../lib/shortcode.json');
 
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load(path.join(__dirname, './swagger.yaml'));
+
 const wrapOp = (op) => {
   return (arg) => {
     let p = new Promise((res, rej) => {
@@ -77,16 +81,18 @@ class App {
   async handleVoteEmoji(req, res) {
     let emojiShortcode = req.query['choice'];
     if (emojiShortcode === undefined || emojiShortcode === '') {
-      logger.error(`Emoji choice [${emojiShortcode}] is mandatory`);
-      return res.status(400).end();
+      let errmsg = `Emoji choice [${emojiShortcode}] is mandatory`;
+      logger.error(errmsg);
+      return res.status(400).json(errmsg);
     }
 
     try {
       let match = await this._FindByShortcode({ Shortcode: emojiShortcode });
 
       if (match === null) {
-        logger.error(`Choosen emoji shortcode [${emojiShortcode}] doesnt exist`);
-        return res.status(400).end();
+        let errmsg = `Choosen emoji shortcode [${emojiShortcode}] doesnt exist`;
+        logger.error(errmsg);
+        return res.status(400).json(errmsg);
       }
 
       let operation = Object.entries(shortcode).filter(sc => {
@@ -171,6 +177,7 @@ module.exports.create = async(webPort, webpackDevServerHost, indexBundle, emojiC
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use('/', routes);
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   new App(routes, webPort, webpackDevServerHost, indexBundle, emojiClient, votingClient);
 
