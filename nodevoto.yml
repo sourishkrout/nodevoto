@@ -28,7 +28,7 @@ spec:
           value: "8080"
         - name: SVC_NAME
           value: emoji
-        image: sourishkrout/nodevoto:latest
+        image: sourishkrout/nodevoto:v1
         name: emoji-svc
         ports:
         - containerPort: 8080
@@ -74,7 +74,7 @@ spec:
           value: "8080"
         - name: SVC_NAME
           value: voting
-        image: sourishkrout/nodevoto:latest
+        image: sourishkrout/nodevoto:v1
         name: voting-svc
         ports:
         - containerPort: 8080
@@ -126,7 +126,7 @@ spec:
           value: services/nodevoto-web/webapp/dist/index_bundle.js
         - name: SVC_NAME
           value: web
-        image: sourishkrout/nodevoto:latest
+        image: sourishkrout/nodevoto:v1
         name: web-svc
         ports:
         - containerPort: 80
@@ -172,7 +172,7 @@ spec:
           value: voteBot
         - name: WEB_HOST
           value: web-svc.nodevoto:80
-        image: sourishkrout/nodevoto:latest
+        image: sourishkrout/nodevoto:v1
         name: vote-bot
         resources: {}
 status: {}
