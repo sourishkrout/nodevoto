@@ -51,7 +51,7 @@ class App {
     return response.list;
   }
 
-  async handleError(err, res) {
+  handleError(err, res) {
     logger.error(err);
     return res.status(500).json(err.message);
   }
@@ -70,7 +70,7 @@ class App {
 
       return res.json(await Promise.all(list));
     } catch (err) {
-      this.handleError(err);
+      return this.handleError(err);
     }
   }
 
