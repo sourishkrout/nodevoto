@@ -1,5 +1,7 @@
 # Node.js' Emoji.voto
 
+[![Build Status](https://travis-ci.org/sourishkrout/nodevoto.svg?branch=master)](https://travis-ci.org/sourishkrout/nodevoto)
+
 A microservice application that allows users to vote for their favorite emoji,
 and tracks votes received on a leaderboard. May the best emoji win.
 
