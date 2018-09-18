@@ -1,14 +1,14 @@
-# Node.js' Emoji.voto
+# Node.js' Gif.voto
 
 [![Build Status](https://travis-ci.org/sourishkrout/nodevoto.svg?branch=master)](https://travis-ci.org/sourishkrout/nodevoto)
 
-A microservice application that allows users to vote for their favorite emoji,
-and tracks votes received on a leaderboard. May the best emoji win.
+A microservice application that allows users to vote for their favorite gif,
+and tracks votes received on a leaderboard. May the best gif win.
 
 The application is composed of the following 3 services:
 
 * [nodevoto-web](services/nodevoto-web/): Web frontend and REST API
-* [nodevoto-emoji](services/nodevoto-emoji/): gRPC API for finding and listing emoji
+* [nodevoto-gif](services/nodevoto-gif/): gRPC API for finding and listing gif
 * [nodevoto-voting](services/nodevoto-voting/): gRPC API for voting and leaderboard
 
 ![Nodevoto Topology](assets/emojivoto-topology.png "Emojivoto Topology")
@@ -50,11 +50,11 @@ minikube -n nodevoto service web-svc
 ```
 ### Generating some traffic
 
-The `VoteBot` service can generate some traffic for you. It votes on emoji
+The `VoteBot` service can generate some traffic for you. It votes on gif
 "randomly" as follows:
 - It votes for :doughnut: 15% of the time.
 - It votes for :poop: 20% of the time.
-- When not voting for :doughnut: or :poop:, it picks an emoji at random
+- When not voting for :doughnut: or :poop:, it picks an gif at random
 
 If you're running the app using the instructions above, the VoteBot will have
 been deployed and will start sending traffic to the vote endpoint.
@@ -81,9 +81,9 @@ Start the voting service
 GRPC_PORT=8081 npm run voting
 ```
 
-[In a separate teminal window] Start the emoji service
+[In a separate teminal window] Start the gif service
 ```
-GRPC_PORT=8082 npm run emoji
+GRPC_PORT=8082 npm run gif
 ```
 
 [In a separate teminal window] Bundle the frontend assets
@@ -98,7 +98,7 @@ yarn webpack-dev-server --port 8083 # bundle/serve reloading assets
 ```
 export WEB_PORT=8080
 export VOTINGSVC_HOST=localhost:8081
-export EMOJISVC_HOST=localhost:8082
+export GIFSVC_HOST=localhost:8082
 
 # if you ran yarn webpack
 export INDEX_BUNDLE=services/nodevoto-web/webapp/dist/index_bundle.js

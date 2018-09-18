@@ -2,16 +2,16 @@ syntax = "proto3";
 
 package emojivoto.v1;
 
-message Emoji {
-    string unicode = 1;
+message Gif {
+    string url = 1;
     string shortcode = 2;
 }
 
-message ListAllEmojiRequest {
+message ListAllGifRequest {
 }
 
-message ListAllEmojiResponse {
-    repeated Emoji list = 1;
+message ListAllGifResponse {
+    repeated Gif list = 1;
 }
 
 message FindByShortcodeRequest {
@@ -19,10 +19,10 @@ message FindByShortcodeRequest {
 }
 
 message FindByShortcodeResponse {
-    Emoji Emoji = 1;
+    Gif Gif = 1;
 }
 
-service EmojiService {
-    rpc ListAll (ListAllEmojiRequest) returns (ListAllEmojiResponse);
+service GifService {
+    rpc ListAll (ListAllGifRequest) returns (ListAllGifResponse);
     rpc FindByShortcode (FindByShortcodeRequest) returns (FindByShortcodeResponse);
 }

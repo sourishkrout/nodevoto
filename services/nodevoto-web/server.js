@@ -8,20 +8,20 @@ const logger = require('../../lib/logger');
 const app = require('./app');
 
 const WEB_PORT = process.env.WEB_PORT !== undefined ? process.env.WEB_PORT : null;
-const EMOJISVC_HOST = process.env.EMOJISVC_HOST !== undefined ? process.env.EMOJISVC_HOST : null;
+const GIFSVC_HOST = process.env.GIFSVC_HOST !== undefined ? process.env.GIFSVC_HOST : null;
 const VOTINGSVC_HOST = process.env.VOTINGSVC_HOST !== undefined ? process.env.VOTINGSVC_HOST : null;
 const INDEX_BUNDLE = process.env.INDEX_BUNDLE !== undefined ? process.env.INDEX_BUNDLE : null;
 const WEBPACK_DEV_SERVER = process.env.WEBPACK_DEV_SERVER !== undefined ? process.env.WEBPACK_DEV_SERVER : null;
 
-if (WEB_PORT && EMOJISVC_HOST && VOTINGSVC_HOST) {
+if (WEB_PORT && GIFSVC_HOST && VOTINGSVC_HOST) {
   Promise.resolve().then(async() => {
-    let emojiClient = createGrpcClient('../../proto/Emoji.proto', 'EmojiService', EMOJISVC_HOST);
+    let gifClient = createGrpcClient('../../proto/Gif.proto', 'GifService', GIFSVC_HOST);
     let votingClient = createGrpcClient('../../proto/Voting.proto', 'VotingService', VOTINGSVC_HOST);
 
     let web = await app.create(WEB_PORT,
       WEBPACK_DEV_SERVER,
       INDEX_BUNDLE,
-      await emojiClient,
+      await gifClient,
       await votingClient);
     let server = http.createServer(web);
 
@@ -29,7 +29,7 @@ if (WEB_PORT && EMOJISVC_HOST && VOTINGSVC_HOST) {
     server.listen(WEB_PORT);
   });
 } else {
-  logger.error(`WEB_PORT (currently [${WEB_PORT}]) EMOJISVC_HOST (currently [${EMOJISVC_HOST}]) and VOTINGSVC_HOST (currently [${VOTINGSVC_HOST}]) INDEX_BUNDLE (currently [${INDEX_BUNDLE}]) environment variables must me set.`);
+  logger.error(`WEB_PORT (currently [${WEB_PORT}]) GIFSVC_HOST (currently [${GIFSVC_HOST}]) and VOTINGSVC_HOST (currently [${VOTINGSVC_HOST}]) INDEX_BUNDLE (currently [${INDEX_BUNDLE}]) environment variables must me set.`);
   process.exit(1);
 }
 

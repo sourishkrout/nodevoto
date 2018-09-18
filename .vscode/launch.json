@@ -43,8 +43,8 @@
                 "WEB_PORT": "8080",
                 //"WEBPACK_DEV_SERVER": "http://localhost:8083", // enable for active webapp dev
                 "VOTINGSVC_HOST": "localhost:8081",
-                "EMOJISVC_HOST": "localhost:8082",
-                "INDEX_BUNDLE": "services/nodevoto-web/webapp/dist/index_bundle.js"
+                "GIFSVC_HOST": "localhost:8082",
+                //"INDEX_BUNDLE": "services/nodevoto-web/webapp/dist/index_bundle.js"
             },
             "internalConsoleOptions": "openOnSessionStart",
             "outputCapture": "std" // https://github.com/Microsoft/vscode/issues/34702#issuecomment-331237388

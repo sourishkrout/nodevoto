@@ -25,7 +25,7 @@ class GifServiceServer {
     };
 
     implementations.FindByShortcode = (call, callback) => {
-      let gif = { Emoji: this.getByShortcode(call.request.Shortcode) };
+      let gif = { Gif: this.getByShortcode(call.request.Shortcode) };
       callback(null, gif);
     };
 
@@ -34,7 +34,7 @@ class GifServiceServer {
 }
 
 module.exports.newGrpcServer = async (grpcServer, gif) => {
-  const PROTO_PATH = path.join(__dirname + '../../../proto/Emoji.proto');
+  const PROTO_PATH = path.join(__dirname + '../../../proto/Gif.proto');
 
   let descriptor = await protoLoader.load(
     PROTO_PATH,
@@ -46,11 +46,11 @@ module.exports.newGrpcServer = async (grpcServer, gif) => {
       oneofs: true
     });
 
-  let emojiSvc = descriptor['emojivoto.v1.EmojiService'];
-  let emojiSrv = new GifServiceServer(gif);
-  let implementations = emojiSrv.mapRPC();
+  let gifSvc = descriptor['emojivoto.v1.GifService'];
+  let gifSrv = new GifServiceServer(gif);
+  let implementations = gifSrv.mapRPC();
 
-  grpcServer.addService(emojiSvc, implementations);
+  grpcServer.addService(gifSvc, implementations);
 
   return implementations;
 };

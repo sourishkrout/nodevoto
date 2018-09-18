@@ -155,11 +155,11 @@ h1 .title {
   overflow: auto;
 }
 
-.emoji-list {
+.gif-list {
   margin-top: 50px;
 }
 
-.emoji {
+.gif {
   font-size: 2rem;
   float: left;
   width: 100px;
@@ -167,16 +167,16 @@ h1 .title {
   line-height: 180px;
 }
 
-.emoji-votable {
+.gif-votable {
   cursor: pointer;
 }
 
-.emoji-votable:hover {
+.gif-votable:hover {
   transition: 0.2s ease;
   background-color: rgba(47, 128, 237,.2);
 }
 
-.emoji-votable:active {
+.gif-votable:active {
   background-color: rgba(47, 128, 237,1);
 }
 
@@ -257,7 +257,7 @@ h1 .title {
     display: none;
   }
 
-  .emoji {
+  .gif {
     font-size: 3rem;
     float: left;
     width: 120px;

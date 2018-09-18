@@ -10,7 +10,7 @@
     "generateEmojiCodeMap": "node scripts/generateEmojiCodeMap.js",
     "generateGiphyMap": "node scripts/generateGiphyMap.js",
     "voting": "node services/nodevoto-voting/server.js",
-    "emoji": "node services/nodevoto-emoji/server.js",
+    "gif": "node services/nodevoto-gif/server.js",
     "web": "node services/nodevoto-web/server.js",
     "voteBot": "node services/nodevoto-web/voteBot.js"
   },

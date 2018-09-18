@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import 'whatwg-fetch';
 
-const EmojiVotoPage = ({headline, contents, containerClass, preHeadline}) => {
+const GifVotoPage = ({headline, contents, containerClass, preHeadline}) => {
   return (
     <div className={containerClass}>
       <div className="page-content container-fluid">
@@ -24,8 +24,8 @@ export default class Vote extends React.Component {
     super(props);
     this.resetState = this.resetState.bind(this);
     this.state = {
-      emojiList: [],
-      selectedEmoji: null,
+      gifList: [],
+      selectedGif: null,
       error: null
     }
   }
@@ -33,7 +33,7 @@ export default class Vote extends React.Component {
   loadFromServer() {
     fetch('/api/list').then(rsp => {
       rsp.json().then(r => {
-        this.setState({ emojiList: r })
+        this.setState({ gifList: r })
       }).catch(e => {
         this.setState( {error: e.statusText });
       }).catch(e => {
@@ -46,30 +46,30 @@ export default class Vote extends React.Component {
     this.loadFromServer();
   }
 
-  vote(emoji) {
-    fetch(`/api/vote?choice=${emoji.shortcode}`).then(rsp => {
+  vote(gif) {
+    fetch(`/api/vote?choice=${gif.shortcode}`).then(rsp => {
       if (rsp.ok) {
-        this.setState({ selectedEmoji: emoji, error: null });
+        this.setState({ selectedGif: gif, error: null });
       } else {
         throw new Error("Unable to Register Vote");
       }
     }).catch(e => {
-        this.setState({ selectedEmoji: emoji, error: e.toString() });
+        this.setState({ selectedGif: gif, error: e.toString() });
       });
   }
 
   resetState() {
-    this.setState({ selectedEmoji: null, error: null });
+    this.setState({ selectedGif: null, error: null });
   }
 
-  renderEmojiList(emojis) {
-    return _.map(emojis, (emoji, i) => {
-      let url = emoji.unicode.replace("https://media2.giphy.com/media/", "gifs/");
+  renderGifList(gifs) {
+    return _.map(gifs, (gif, i) => {
+      let url = gif.url.replace("https://media2.giphy.com/media/", "gifs/");
       return (
         <div
-          className="emoji emoji-votable"
-          key={`emoji-${i}`}
-          onClick={e => this.vote(emoji)}
+          className="gif gif-votable"
+          key={`gif-${i}`}
+          onClick={e => this.vote(gif)}
         >
           <img src={url}></img>
         </div>
@@ -84,7 +84,7 @@ export default class Vote extends React.Component {
   render() {
     if (this.state.error) {
       let errorMessage = <p>We couldn't process your request.</p>;
-      if(this.state.selectedEmoji.shortcode === ":poop:") {
+      if(this.state.selectedGif.shortcode === ":poop:") {
         errorMessage = (<div>
           <p className="poop-explanation">For the sake of this demo, voting for 💩<br />
             always returns an error.
@@ -100,23 +100,23 @@ export default class Vote extends React.Component {
         </div>
       );
 
-      return <EmojiVotoPage
+      return <GifVotoPage
         preHeadline={<h1 className="title">Uh oh.</h1>}
         headline="🚧"
         contents={contents}
         containerClass="background-500"
       />;
-    } else if (!this.state.selectedEmoji) {
-      let emojiList = this.state.emojiList;
+    } else if (!this.state.selectedGif) {
+      let gifList = this.state.gifList;
       let contents = (
         <div>
           <h1>GIF VOTE</h1>
           <p>Tap to vote for your favorite gif below</p>
           {this.renderLeaderboardLink()}
-          {!_.isEmpty(emojiList) ? null : <div>Loading gif...</div>}
+          {!_.isEmpty(gifList) ? null : <div>Loading gif...</div>}
 
-          <div className="emoji-list">
-            {this.renderEmojiList(emojiList)}
+          <div className="gif-list">
+            {this.renderGifList(gifList)}
 
             <div className="footer-text">
               <p>A <a href='https://buoyant.io'>Buoyant</a> social experiment</p>
@@ -126,13 +126,13 @@ export default class Vote extends React.Component {
         </div>
       );
 
-      return <EmojiVotoPage
+      return <GifVotoPage
         headline="🗳"
         contents={contents}
         containerClass="background"
       />;
     } else {
-      let url = this.state.selectedEmoji.unicode.replace("https://media2.giphy.com/media/", "gifs/");
+      let url = this.state.selectedGif.url.replace("https://media2.giphy.com/media/", "gifs/");
       let contents = (
         <div>
           <p>See how you stack up against others</p>
@@ -143,7 +143,7 @@ export default class Vote extends React.Component {
       let headline = (
           <img src={url}></img>
       );
-      return <EmojiVotoPage
+      return <GifVotoPage
         preHeadline={<h1>You picked:</h1>}
         headline={headline}
         contents={contents}

@@ -1,6 +1,6 @@
 'use strict';
-const api = require('../../services/nodevoto-emoji/api');
-const Gif = require('../../services/nodevoto-emoji/Gif');
+const api = require('../../services/nodevoto-gif/api');
+const Gif = require('../../services/nodevoto-gif/Gif');
 
 const grpc = require('grpc');
 
@@ -24,7 +24,7 @@ const wrapArg = (arg) => {
   return { 'request': { 'Shortcode': arg } };
 };
 
-describe('api (emoji)', () => {
+describe('api (gif)', () => {
   let impls;
 
   beforeEach(async() => {
@@ -49,18 +49,18 @@ describe('api (emoji)', () => {
     it('should return all gifs when ListAll is called', async() => {
       let response = await wrap(impls.ListAll)();
 
-      expect(response.list.length).equals(88);
+      expect(response.list.length).equals(87);
 
-      expect(response.list[5].unicode).equals('https://media3.giphy.com/media/3oKIPlAKUjRpoc3duw/100w.gif');
+      expect(response.list[5].url).equals('https://media3.giphy.com/media/3oKIPlAKUjRpoc3duw/100w.gif');
       expect(response.list[5].shortcode).equals(':gotham-foxtv-fox-broadcasting-3oKIPlAKUjRpoc3duw:');
     });
 
     it('should return gif for valid shortcode', async() => {
       let findByShortcode = wrap(impls.FindByShortcode);
-      let found = (await findByShortcode(wrapArg(':ussoccer-funny-lol-95Euu3wrLljyg:'))).Emoji;
+      let found = (await findByShortcode(wrapArg(':ussoccer-funny-lol-95Euu3wrLljyg:'))).Gif;
 
       expect(found).not.to.equal(null);
-      expect(found.unicode).equals('https://media1.giphy.com/media/95Euu3wrLljyg/100w.gif');
+      expect(found.url).equals('https://media1.giphy.com/media/95Euu3wrLljyg/100w.gif');
       expect(found.shortcode).equals(':ussoccer-funny-lol-95Euu3wrLljyg:');
     });
 
@@ -70,8 +70,8 @@ describe('api (emoji)', () => {
 
       let all = list.map(gif => {
         return findByShortcode(wrapArg(gif.shortcode)).then(found => {
-          return found.Emoji.unicode === gif.unicode
-            && found.Emoji.shortcode === gif.shortcode;
+          return found.Gif.url === gif.url
+            && found.Gif.shortcode === gif.shortcode;
         });
       });
 
@@ -86,7 +86,7 @@ describe('api (emoji)', () => {
       let findByShortcode = wrap(impls.FindByShortcode);
       let found = await findByShortcode(wrapArg(':not_available:'));
 
-      expect(found.Emoji).equals(null);
+      expect(found.Gif).equals(null);
     });
 
   });

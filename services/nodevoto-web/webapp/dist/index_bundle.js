@@ -41567,7 +41567,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var EmojiVotoPage = function EmojiVotoPage(_ref) {
+var GifVotoPage = function GifVotoPage(_ref) {
   var headline = _ref.headline,
       contents = _ref.contents,
       containerClass = _ref.containerClass,
@@ -41608,8 +41608,8 @@ var Vote = function (_React$Component) {
 
     _this.resetState = _this.resetState.bind(_this);
     _this.state = {
-      emojiList: [],
-      selectedEmoji: null,
+      gifList: [],
+      selectedGif: null,
       error: null
     };
     return _this;
@@ -41622,7 +41622,7 @@ var Vote = function (_React$Component) {
 
       fetch('/api/list').then(function (rsp) {
         rsp.json().then(function (r) {
-          _this2.setState({ emojiList: r });
+          _this2.setState({ gifList: r });
         }).catch(function (e) {
           _this2.setState({ error: e.statusText });
         }).catch(function (e) {
@@ -41637,40 +41637,41 @@ var Vote = function (_React$Component) {
     }
   }, {
     key: 'vote',
-    value: function vote(emoji) {
+    value: function vote(gif) {
       var _this3 = this;
 
-      fetch('/api/vote?choice=' + emoji.shortcode).then(function (rsp) {
+      fetch('/api/vote?choice=' + gif.shortcode).then(function (rsp) {
         if (rsp.ok) {
-          _this3.setState({ selectedEmoji: emoji, error: null });
+          _this3.setState({ selectedGif: gif, error: null });
         } else {
           throw new Error("Unable to Register Vote");
         }
       }).catch(function (e) {
-        _this3.setState({ selectedEmoji: emoji, error: e.toString() });
+        _this3.setState({ selectedGif: gif, error: e.toString() });
       });
     }
   }, {
     key: 'resetState',
     value: function resetState() {
-      this.setState({ selectedEmoji: null, error: null });
+      this.setState({ selectedGif: null, error: null });
     }
   }, {
-    key: 'renderEmojiList',
-    value: function renderEmojiList(emojis) {
+    key: 'renderGifList',
+    value: function renderGifList(gifs) {
       var _this4 = this;
 
-      return _lodash2.default.map(emojis, function (emoji, i) {
+      return _lodash2.default.map(gifs, function (gif, i) {
+        var url = gif.url.replace("https://media2.giphy.com/media/", "gifs/");
         return _react2.default.createElement(
           'div',
           {
-            className: 'emoji emoji-votable',
-            key: 'emoji-' + i,
+            className: 'gif gif-votable',
+            key: 'gif-' + i,
             onClick: function onClick(e) {
-              return _this4.vote(emoji);
+              return _this4.vote(gif);
             }
           },
-          emoji.unicode
+          _react2.default.createElement('img', { src: url })
         );
       });
     }
@@ -41696,7 +41697,7 @@ var Vote = function (_React$Component) {
           null,
           'We couldn\'t process your request.'
         );
-        if (this.state.selectedEmoji.shortcode === ":poop:") {
+        if (this.state.selectedGif.shortcode === ":poop:") {
           errorMessage = _react2.default.createElement(
             'div',
             null,
@@ -41736,7 +41737,7 @@ var Vote = function (_React$Component) {
           )
         );
 
-        return _react2.default.createElement(EmojiVotoPage, {
+        return _react2.default.createElement(GifVotoPage, {
           preHeadline: _react2.default.createElement(
             'h1',
             { className: 'title' },
@@ -41746,31 +41747,31 @@ var Vote = function (_React$Component) {
           contents: contents,
           containerClass: 'background-500'
         });
-      } else if (!this.state.selectedEmoji) {
-        var emojiList = this.state.emojiList;
+      } else if (!this.state.selectedGif) {
+        var gifList = this.state.gifList;
         var _contents = _react2.default.createElement(
           'div',
           null,
           _react2.default.createElement(
             'h1',
             null,
-            'EMOJI VOTE'
+            'GIF VOTE'
           ),
           _react2.default.createElement(
             'p',
             null,
-            'Tap to vote for your favorite emoji below'
+            'Tap to vote for your favorite gif below'
           ),
           this.renderLeaderboardLink(),
-          !_lodash2.default.isEmpty(emojiList) ? null : _react2.default.createElement(
+          !_lodash2.default.isEmpty(gifList) ? null : _react2.default.createElement(
             'div',
             null,
-            'Loading emoji...'
+            'Loading gif...'
           ),
           _react2.default.createElement(
             'div',
-            { className: 'emoji-list' },
-            this.renderEmojiList(emojiList),
+            { className: 'gif-list' },
+            this.renderGifList(gifList),
             _react2.default.createElement(
               'div',
               { className: 'footer-text' },
@@ -41794,12 +41795,13 @@ var Vote = function (_React$Component) {
           )
         );
 
-        return _react2.default.createElement(EmojiVotoPage, {
+        return _react2.default.createElement(GifVotoPage, {
           headline: '\uD83D\uDDF3',
           contents: _contents,
           containerClass: 'background'
         });
       } else {
+        var url = this.state.selectedGif.url.replace("https://media2.giphy.com/media/", "gifs/");
         var _contents2 = _react2.default.createElement(
           'div',
           null,
@@ -41819,13 +41821,14 @@ var Vote = function (_React$Component) {
             )
           )
         );
-        return _react2.default.createElement(EmojiVotoPage, {
+        var headline = _react2.default.createElement('img', { src: url });
+        return _react2.default.createElement(GifVotoPage, {
           preHeadline: _react2.default.createElement(
             'h1',
             null,
             'You picked:'
           ),
-          headline: this.state.selectedEmoji.unicode,
+          headline: headline,
           contents: _contents2,
           containerClass: 'background'
         });
@@ -45043,13 +45046,13 @@ var Leaderboard = function (_React$Component) {
     }
   }, {
     key: 'loadFromServer',
-    value: function loadFromServer(emoji) {
+    value: function loadFromServer(url) {
       var _this2 = this;
 
       fetch('/api/leaderboard').then(function (r) {
-        r.json().then(function (emojis) {
+        r.json().then(function (urls) {
           _this2.setState({
-            leaderboard: emojis
+            leaderboard: urls
           });
         }).catch(function (e) {
           return _this2.setState({ error: e });
@@ -45061,19 +45064,20 @@ var Leaderboard = function (_React$Component) {
   }, {
     key: 'renderLeaderboard',
     value: function renderLeaderboard() {
-      return _lodash2.default.map(this.state.leaderboard, function (emoji, i) {
+      return _lodash2.default.map(this.state.leaderboard, function (gif, i) {
+        var _url = gif.url.replace("https://media2.giphy.com/media/", "gifs/");
         return _react2.default.createElement(
           'div',
-          { className: 'emoji', key: 'emoji-' + i, title: emoji.votes + ' votes' },
+          { className: 'gif', key: 'gif-' + i, title: gif.votes + ' votes' },
           _react2.default.createElement(
             'div',
             null,
-            emoji.unicode
+            _react2.default.createElement('img', { src: _url })
           ),
-          emoji.votes > 0 ? _react2.default.createElement(
+          gif.votes > 0 ? _react2.default.createElement(
             'div',
             { className: 'counter' },
-            emoji.votes
+            gif.votes
           ) : null
         );
       });
@@ -45101,7 +45105,7 @@ var Leaderboard = function (_React$Component) {
               _react2.default.createElement(
                 'h1',
                 null,
-                'EMOJI VOTE LEADERBOARD '
+                'GIF VOTE LEADERBOARD '
               ),
               _react2.default.createElement(
                 _reactRouterDom.Link,
@@ -45114,7 +45118,7 @@ var Leaderboard = function (_React$Component) {
               ),
               _react2.default.createElement(
                 'div',
-                { className: 'emoji-list' },
+                { className: 'gif-list' },
                 this.renderLeaderboard(),
                 _react2.default.createElement(
                   'div',
@@ -45329,7 +45333,7 @@ exports = module.exports = __webpack_require__(105)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Lato:400,400i,700,900);", ""]);
 
 // module
-exports.push([module.i, "body {\n  margin: 0;\n  font-weight: 400;\n  font-family: 'Lato', 'Helvetica Neue', Helvetica, arial, sans-serif;\n  text-rendering: optimizeLegibility;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\nh1 {\n  font-size: 24px;\n  font-weight: 900;\n  letter-spacing: 2px;\n}\n\nh2, h3, h4, h5, h6 {\n  font-weight: 700;\n}\n\na {\n  text-decoration: none;\n}\n\n.headline {\n  font-size: 6rem;\n  line-height: 0;\n}\n\n.footer-text {\n  left: 0;\n  color: #999;\n  font-size: .8em;\n  margin: 0px 50% 0 50%;\n  width: 70vw;\n  display: inline;\n}\n\n[title~=\"\"] {\n    background-color: none;\n}\n\n@keyframes fadein {\n    from {\n        opacity:0;\n    }\n    to {\n        opacity:1;\n    }\n}\n\n@-webkit-keyframes fadein { /* Safari and Chrome */\n    from {\n        opacity:0;\n    }\n    to {\n        opacity:1;\n    }\n}\n\n.footer-mark {\n  height: 50%;\n  float: left;\n  padding: 1vh 50% 0 50%;\n}\n\n.footer-experiment {\n  margin: 25% 0 0 0;\n}\n\n.background {\n  padding-top: 2vw;\n  height: 100%;\n  min-height: 100vh;\n  background: linear-gradient(124deg, #9B51E0 0%, #FF009B 23.76%, #F2C94C 47.51%, #2F80ED 78.45%, #219653 100%);\n  background-size: 500% 500%;\n  -webkit-animation: rainbow 12s ease infinite;\n  -z-animation: rainbow 12s ease infinite;\n  animation: rainbow 12s ease infinite;\n}\n\n.background-500 {\n  padding-top: 2vw;\n  height: 100%;\n  min-height: 100vh;\n  background-color: yellow;\n  background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, black 35px, black 70px);\n/*  background: -webkit-repeating-linear-gradient(45deg, yellow, yellow 40px, black 10px, black 80px);\n  background: repeating-linear-gradient(45deg, yellow, yellow 40px, black 10px, black 80px);*/\n  -webkit-animation: 500s infinite;\n  -z-animation: rainbow 500s infinite;\n  animation: rainbow 500s infinite;\n}\n\n@-webkit-keyframes rainbow {\n  0%{background-position:0% 82%}\n  50%{background-position:100% 19%}\n  100%{background-position:0% 82%}\n}\n\n@keyframes rainbow {\n  0%{background-position:0% 82%}\n  50%{background-position:100% 19%}\n  100%{background-position:0% 82%}\n}\n\nh1 .title {\n  font-size: 3rem;\n}\n\n.page-content {\n  border-radius: 1vw;\n  background-color: #fff;\n  height: 100%;\n  min-height: 96vh;\n  width: 96vw;\n  max-width: 632px;\n  text-align: center;\n  overflow: auto;\n}\n\n.emoji-list {\n  margin-top: 50px;\n}\n\n.emoji {\n  border-radius: 50%;\n  font-size: 2rem;\n  float: left;\n  height: 50px;\n  width: 50px;\n  padding: 5px;\n  line-height: 3.2rem;\n}\n\n.emoji-votable {\n  cursor: pointer;\n}\n\n.emoji-votable:hover {\n  -webkit-transition: 0.2s ease;\n  transition: 0.2s ease;\n  background-color: rgba(47, 128, 237, .2);\n}\n\n.emoji-votable:active {\n  background-color: rgba(47, 128, 237, 1);\n}\n\n.error {\n  color: #EB5757;\n  padding: 5px;\n}\n\n.btn {\n  border-radius: 100px;\n  padding: 10px 8px 11px 8px;\n  width: 50%;\n  margin: 30px auto;\n}\n\n.btn a {\n  color: inherit;\n  text-decoration: none;\n  font-weight: 700;\n}\n\n.btn a:visited {\n  text-decoration: none;\n}\n\n.btn.btn-blue {\n  background: #2F80ED;;\n  color: white;\n}\n\n.btn.btn-white {\n  border: 1px solid #2F80ED;\n  color: #2F80ED;\n}\n\n.counter {\n  font-size: 1.5rem;\n  line-height: 1;\n}\n\n.container {\n  margin-right: auto;\n  margin-left: auto;\n  padding-left: 15px;\n  padding-right: 15px;\n}\n\n@media (min-width: 768px) {\n  .container {\n    width: 750px;\n  }\n}\n\n@media (min-width: 992px) {\n  .container {\n    width: 970px;\n  }\n}\n\n@media (min-width: 1200px) {\n  .container {\n    width: 1170px;\n  }\n}\n\n.container-fluid {\n  margin-right: auto;\n  margin-left: auto;\n  padding: 5vw 0 0 0;\n}\n\n@media screen and (min-width: 638px) {\n  .footer-cta-web {\n    font-weight: bold;\n    font-size: .9em;\n    line-height: 1.5em;\n    color: #fff;\n  }\n\n  .footer-cta {\n    display: none;\n  }\n\n  .emoji {\n    border-radius: 50%;\n    margin: 30px 4px 30px 4px;\n    font-size: 3rem;\n    float: left;\n    height: 85px;\n    width: 85px;\n    padding: 5px;\n    line-height: 5.4rem;\n  }\n}\n\n@media screen and (max-width: 638px) {\n  .footer-cta {\n    font-weight: bold;\n    font-size: .9em;\n    line-height: 1.5em;\n    color: #fff;\n  }\n\n  .footer-cta-web {\n    display: none;\n  }\n}\n", ""]);
+exports.push([module.i, "body {\n  margin: 0;\n  font-weight: 400;\n  font-family: 'Lato', 'Helvetica Neue', Helvetica, arial, sans-serif;\n  text-rendering: optimizeLegibility;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\nh1 {\n  font-size: 24px;\n  font-weight: 900;\n  letter-spacing: 2px;\n}\n\nh2, h3, h4, h5, h6 {\n  font-weight: 700;\n}\n\na {\n  text-decoration: none;\n}\n\n.headline {\n  font-size: 6rem;\n  line-height: 0;\n}\n\n.footer-text {\n  left: 0;\n  color: #999;\n  font-size: .8em;\n  margin: 0px 50% 0 50%;\n  width: 70vw;\n  display: inline;\n}\n\n[title~=\"\"] {\n    background-color: none;\n}\n\n@keyframes fadein {\n    from {\n        opacity:0;\n    }\n    to {\n        opacity:1;\n    }\n}\n\n@-webkit-keyframes fadein { /* Safari and Chrome */\n    from {\n        opacity:0;\n    }\n    to {\n        opacity:1;\n    }\n}\n\n.footer-mark {\n  height: 50%;\n  float: left;\n  padding: 1vh 50% 0 50%;\n}\n\n.footer-experiment {\n  margin: 25% 0 0 0;\n}\n\n.background {\n  padding-top: 2vw;\n  height: 100%;\n  min-height: 100vh;\n  background: linear-gradient(124deg, #F0E4CA 0%, #FC7D5F 23.76%, #71465A 47.51%, #2E5B8B 78.45%, #4C4A45 100%);\n  background-size: 500% 500%;\n  -webkit-animation: rainbow 12s ease infinite;\n  -z-animation: rainbow 12s ease infinite;\n  animation: rainbow 12s ease infinite;\n}\n\n.background-500 {\n  padding-top: 2vw;\n  height: 100%;\n  min-height: 100vh;\n  background-color: yellow;\n  background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, black 35px, black 70px);\n/*  background: -webkit-repeating-linear-gradient(45deg, yellow, yellow 40px, black 10px, black 80px);\n  background: repeating-linear-gradient(45deg, yellow, yellow 40px, black 10px, black 80px);*/\n  -webkit-animation: 500s infinite;\n  -z-animation: rainbow 500s infinite;\n  animation: rainbow 500s infinite;\n}\n\n@-webkit-keyframes rainbow {\n  0%{background-position:0% 82%}\n  50%{background-position:100% 19%}\n  100%{background-position:0% 82%}\n}\n\n@keyframes rainbow {\n  0%{background-position:0% 82%}\n  50%{background-position:100% 19%}\n  100%{background-position:0% 82%}\n}\n\nh1 .title {\n  font-size: 3rem;\n}\n\n.page-content {\n  border-radius: 1vw;\n  background-color: #fff;\n  height: 100%;\n  min-height: 96vh;\n  width: 96vw;\n  max-width: 632px;\n  text-align: center;\n  overflow: auto;\n}\n\n.gif-list {\n  margin-top: 50px;\n}\n\n.gif {\n  font-size: 2rem;\n  float: left;\n  width: 100px;\n  padding: 2px;\n  line-height: 180px;\n}\n\n.gif-votable {\n  cursor: pointer;\n}\n\n.gif-votable:hover {\n  -webkit-transition: 0.2s ease;\n  transition: 0.2s ease;\n  background-color: rgba(47, 128, 237, .2);\n}\n\n.gif-votable:active {\n  background-color: rgba(47, 128, 237, 1);\n}\n\n.error {\n  color: #EB5757;\n  padding: 5px;\n}\n\n.btn {\n  border-radius: 100px;\n  padding: 10px 8px 11px 8px;\n  width: 50%;\n  margin: 30px auto;\n}\n\n.btn a {\n  color: inherit;\n  text-decoration: none;\n  font-weight: 700;\n}\n\n.btn a:visited {\n  text-decoration: none;\n}\n\n.btn.btn-blue {\n  background: #2F80ED;;\n  color: white;\n}\n\n.btn.btn-white {\n  border: 1px solid #2F80ED;\n  color: #2F80ED;\n}\n\n.counter {\n  font-size: 1.5rem;\n  line-height: 1;\n}\n\n.container {\n  margin-right: auto;\n  margin-left: auto;\n  padding-left: 15px;\n  padding-right: 15px;\n}\n\n@media (min-width: 768px) {\n  .container {\n    width: 750px;\n  }\n}\n\n@media (min-width: 992px) {\n  .container {\n    width: 970px;\n  }\n}\n\n@media (min-width: 1200px) {\n  .container {\n    width: 1170px;\n  }\n}\n\n.container-fluid {\n  margin-right: auto;\n  margin-left: auto;\n  padding: 5vw 0 0 0;\n}\n\n@media screen and (min-width: 638px) {\n  .footer-cta-web {\n    font-weight: bold;\n    font-size: .9em;\n    line-height: 1.5em;\n    color: #fff;\n  }\n\n  .footer-cta {\n    display: none;\n  }\n\n  .gif {\n    font-size: 3rem;\n    float: left;\n    width: 120px;\n    line-height: 210px;\n  }\n}\n\n@media screen and (max-width: 638px) {\n  .footer-cta {\n    font-weight: bold;\n    font-size: .9em;\n    line-height: 1.5em;\n    color: #fff;\n  }\n\n  .footer-cta-web {\n    display: none;\n  }\n}\n", ""]);
 
 // exports
 

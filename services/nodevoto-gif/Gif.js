@@ -42,7 +42,6 @@ class Gif {
       ':garfield-cat-coffee-pzryvxGeykOxeC0fWb:',
       ':animation-lol-l44QmLrXyMhztpB28:',
       ':sloth-sloths-slothilda-3o6gaVztoohCD4cdAk:',
-      ':studiosoriginals-3ohhwHZXd5AQ3U08bm:',
       ':oxygenmedia-side-eye-no-you-didnt-deitrick-haddon-TlK63EGn8YyRbiI6mBy:',
       ':afv-l41lFeGts4W1gbKCc:',
       ':dance-dancing-funny-l4JyOrGkMIwwGFvOg:',
@@ -98,7 +97,7 @@ class Gif {
 
     this.inMemAllGif = this.topGif.map(_em => {
       return {
-        unicode: gifCodeMap[_em].src,
+        url: gifCodeMap[_em].src,
         shortcode: _em
       };
     });

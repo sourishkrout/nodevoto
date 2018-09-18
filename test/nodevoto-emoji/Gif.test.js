@@ -1,6 +1,6 @@
 'use strict';
 const expect = require('chai').expect;
-const Gif = require('../../services/nodevoto-emoji/Gif');
+const Gif = require('../../services/nodevoto-gif/Gif');
 const gifCodeMap = require('../../lib/gif_codemap.json');
 
 describe('Gif', () => {
@@ -14,7 +14,7 @@ describe('Gif', () => {
     it('should return VoteLoveArtCute for specific shortcode', async() => {
       let _em = gif.getByShortcode(':love-art-cute-l0HU2sYgCZh3HiKnS:');
 
-      expect(_em.unicode).equals('https://media1.giphy.com/media/l0HU2sYgCZh3HiKnS/100w.gif');
+      expect(_em.url).equals('https://media1.giphy.com/media/l0HU2sYgCZh3HiKnS/100w.gif');
       expect(_em.shortcode).equals(':love-art-cute-l0HU2sYgCZh3HiKnS:');
     });
 
@@ -35,9 +35,9 @@ describe('Gif', () => {
       let results = gif.getList();
 
       expect(results).not.equal(null);
-      expect(results[10].unicode).equal('https://media1.giphy.com/media/3o7absbD7PbTFQa0c8/100w.gif');
+      expect(results[10].url).equal('https://media1.giphy.com/media/3o7absbD7PbTFQa0c8/100w.gif');
       expect(results[10].shortcode).equal(':spongebob-cartoon-nickelodeon-thumbs-3o7absbD7PbTFQa0c8:');
-      expect(results.length).equal(88);
+      expect(results.length).equal(87);
     });
 
     it('should have all gif from the generated code map', async() => {
@@ -45,7 +45,7 @@ describe('Gif', () => {
       let gifMap = new Map();
 
       all.forEach(_em => {
-        gifMap.set(_em.unicode, true);
+        gifMap.set(_em.url, true);
       });
 
       let res = gif.topGif.map(code => {
@@ -59,8 +59,8 @@ describe('Gif', () => {
       let list = gif.getList();
 
       let counted = list.reduce((prev, curr) => {
-        let count = prev.get(curr.unicode) || 0;
-        prev.set(curr.unicode, ++count);
+        let count = prev.get(curr.url) || 0;
+        prev.set(curr.url, ++count);
         return prev;
       }, new Map());
 

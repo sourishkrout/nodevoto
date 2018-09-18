@@ -8,28 +8,28 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   creationTimestamp: null
-  name: emoji
+  name: gif
   namespace: nodevoto
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: emoji-svc
+      app: gif-svc
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: emoji-svc
+        app: gif-svc
     spec:
       containers:
       - env:
         - name: GRPC_PORT
           value: "8080"
         - name: SVC_NAME
-          value: emoji
-        image: sourishkrout/nodevoto:v2
-        name: emoji-svc
+          value: gif
+        image: sourishkrout/nodevoto:preview
+        name: gif-svc
         ports:
         - containerPort: 8080
           name: grpc
@@ -39,11 +39,11 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  name: emoji-svc
+  name: gif-svc
   namespace: nodevoto
 spec:
   selector:
-    app: emoji-svc
+    app: gif-svc
   clusterIP: None
   ports:
   - name: grpc
@@ -118,8 +118,8 @@ spec:
       - env:
         - name: WEB_PORT
           value: "80"
-        - name: EMOJISVC_HOST
-          value: emoji-svc.nodevoto:8080
+        - name: GIFSVC_HOST
+          value: gif-svc.nodevoto:8080
         - name: VOTINGSVC_HOST
           value: voting-svc.nodevoto:8080
         - name: INDEX_BUNDLE

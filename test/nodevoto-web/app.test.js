@@ -12,24 +12,24 @@ const WEB_PORT = '8088';
 
 const testMap = [
   {
-    unicode: '👻',
+    url: '👻',
     shortcode: ':ghost:'
   },{
-    unicode: '🤔',
+    url: '🤔',
     shortcode: ':thinking:'
   },{
-    unicode: '🐷',
+    url: '🐷',
     shortcode: ':pig:'
   },{
-    unicode: 'https://media3.giphy.com/media/mv2Txel3lmlA2tjlch/100w.gif',
+    url: 'https://media3.giphy.com/media/mv2Txel3lmlA2tjlch/100w.gif',
     shortcode: ':sandiegozoo-mv2Txel3lmlA2tjlch:'
   },{
-    unicode: '💩',
+    url: '💩',
     shortcode: ':poop:'
   }
 ];
 
-class EmojiMock {
+class GifMock {
   FindByShortcode (args, callback) {
     let match = testMap.filter(v => {
       return v.shortcode === args.Shortcode;
@@ -37,7 +37,7 @@ class EmojiMock {
 
     let ret = match.length > 0 ? match[0] : null;
 
-    return callback(null, { Emoji: ret });
+    return callback(null, { Gif: ret });
   }
 
   ListAll (args, callback) {
@@ -90,17 +90,17 @@ class VotingMock {
 describe('app (web)', () => {
   let web;
   let server;
-  let emoji;
+  let gif;
   let voting;
 
   beforeEach(async() => {
-    emoji = new EmojiMock();
+    gif = new GifMock();
     voting = new VotingMock();
 
     web = await app.create(WEB_PORT,
       null,
       'services/nodevoto-web/webapp/dist/index_bundle.js',
-      emoji,
+      gif,
       voting);
 
     server = web.listen(WEB_PORT, () => {
@@ -112,15 +112,15 @@ describe('app (web)', () => {
     server.close();
   });
 
-  describe('#handleVoteEmoji', () => {
-    it('should return 200 for valid :sandiegozoo-mv2Txel3lmlA2tjlch: emoji', async() => {
+  describe('#handleVoteGif', () => {
+    it('should return 200 for valid :sandiegozoo-mv2Txel3lmlA2tjlch: gif', async() => {
       let response = await superget(`http://127.0.0.1:${WEB_PORT}/api/vote?choice=:sandiegozoo-mv2Txel3lmlA2tjlch:`);
 
       expect(response.status).equals(200);
       expect(voting.get(':sandiegozoo-mv2Txel3lmlA2tjlch:')).equals(1);
     });
 
-    it('should reject vote for :poop: emoji', async() => {
+    it('should reject vote for :poop: gif', async() => {
       try {
         let response = await superget(`http://127.0.0.1:${WEB_PORT}/api/vote?choice=:poop:`);
         expect(response).to.equal(null);
@@ -173,13 +173,13 @@ describe('app (web)', () => {
     });
   });
 
-  describe('#handleListEmoji', () => {
+  describe('#handleListGif', () => {
     it('should return the correct list', async() => {
       let response = await superget(`http://127.0.0.1:${WEB_PORT}/api/list`);
 
       testMap.forEach((v, i) => {
         expect(testMap[i].shortcode).equals(response.body[i].shortcode);
-        expect(testMap[i].unicode).equals(response.body[i].unicode);
+        expect(testMap[i].url).equals(response.body[i].url);
       });
     });
   });
