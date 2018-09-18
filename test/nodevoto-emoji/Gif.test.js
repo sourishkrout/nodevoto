@@ -37,7 +37,7 @@ describe('Gif', () => {
       expect(results).not.equal(null);
       expect(results[10].url).equal('https://media1.giphy.com/media/3o7absbD7PbTFQa0c8/100w.gif');
       expect(results[10].shortcode).equal(':spongebob-cartoon-nickelodeon-thumbs-3o7absbD7PbTFQa0c8:');
-      expect(results.length).equal(87);
+      expect(results.length).equal(86);
     });
 
     it('should have all gif from the generated code map', async() => {
