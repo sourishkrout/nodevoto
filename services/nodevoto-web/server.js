@@ -47,7 +47,7 @@ async function createGrpcClient(proto, svc, host) {
     });
 
   let pkg = grpc.loadPackageDefinition(descriptor);
-  let Service = pkg.emojivoto.v1[svc];
+  let Service = pkg.nodevoto.v1[svc];
 
   let client = new Service(host, grpc.credentials.createInsecure());
 

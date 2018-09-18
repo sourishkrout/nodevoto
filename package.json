@@ -1,7 +1,7 @@
 {
   "name": "nodevoto",
   "version": "0.0.1",
-  "description": "Node.js implementation of emojivoto",
+  "description": "Node.js implementation of emojivoto with gifs instead of emojis",
   "main": "index.js",
   "scripts": {
     "test": "npm run lint && npm run unit-tests && echo 'done.'",

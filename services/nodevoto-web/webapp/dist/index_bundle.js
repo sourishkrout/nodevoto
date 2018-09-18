@@ -41789,7 +41789,18 @@ var Vote = function (_React$Component) {
               _react2.default.createElement(
                 'p',
                 null,
-                '\xA9 2017 Buoyant, Inc. All Rights Reserved.'
+                'Checkout ',
+                _react2.default.createElement(
+                  'a',
+                  { href: '/api-docs' },
+                  'API docs'
+                ),
+                ' for REST reference'
+              ),
+              _react2.default.createElement(
+                'p',
+                null,
+                '\xA9 2018 Buoyant, Inc. All Rights Reserved.'
               )
             )
           )

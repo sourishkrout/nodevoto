@@ -59,7 +59,7 @@ module.exports.newGrpcServer = async (grpcServer, poll) => {
       oneofs: true
     });
 
-  let votingSrv = descriptor['emojivoto.v1.VotingService'];
+  let votingSrv = descriptor['nodevoto.v1.VotingService'];
   let pollSrv = new PollServiceServer(poll);
   let implementations = pollSrv.mapRPC(votingSrv);
 

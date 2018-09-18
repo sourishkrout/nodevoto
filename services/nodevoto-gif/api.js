@@ -46,7 +46,7 @@ module.exports.newGrpcServer = async (grpcServer, gif) => {
       oneofs: true
     });
 
-  let gifSvc = descriptor['emojivoto.v1.GifService'];
+  let gifSvc = descriptor['nodevoto.v1.GifService'];
   let gifSrv = new GifServiceServer(gif);
   let implementations = gifSrv.mapRPC();
 

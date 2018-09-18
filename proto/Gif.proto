@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package emojivoto.v1;
+package nodevoto.v1;
 
 message Gif {
     string url = 1;
