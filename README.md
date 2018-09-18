@@ -52,9 +52,9 @@ minikube -n nodevoto service web-svc
 
 The `VoteBot` service can generate some traffic for you. It votes on gif
 "randomly" as follows:
-- It votes for :doughnut: 15% of the time.
-- It votes for :poop: 20% of the time.
-- When not voting for :doughnut: or :poop:, it picks an gif at random
+- It votes for :jaydenbartels-jayden-bartels-5QLy2hJlQAsrm7ycdq: 15% of the time.
+- It votes for :musicchoice-cute-excited-3og0IPacuEoA6BBTUI: 20% of the time.
+- When not voting for either of the above, it picks an gif at random
 
 If you're running the app using the instructions above, the VoteBot will have
 been deployed and will start sending traffic to the vote endpoint.
