@@ -1,4 +1,4 @@
-# Node.js' Gif.voto
+# Node.js' emojivoto with gifs instead emoji (nodevoto)
 
 [![Build Status](https://travis-ci.org/sourishkrout/nodevoto.svg?branch=master)](https://travis-ci.org/sourishkrout/nodevoto)
 
