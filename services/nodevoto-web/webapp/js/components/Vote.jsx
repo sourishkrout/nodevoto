@@ -64,13 +64,14 @@ export default class Vote extends React.Component {
 
   renderEmojiList(emojis) {
     return _.map(emojis, (emoji, i) => {
+      let url = emoji.unicode.replace("https://media2.giphy.com/media/", "gifs/");
       return (
         <div
           className="emoji emoji-votable"
           key={`emoji-${i}`}
           onClick={e => this.vote(emoji)}
         >
-          {emoji.unicode}
+          <img src={url}></img>
         </div>
       );
     });
@@ -109,10 +110,10 @@ export default class Vote extends React.Component {
       let emojiList = this.state.emojiList;
       let contents = (
         <div>
-          <h1>EMOJI VOTE</h1>
-          <p>Tap to vote for your favorite emoji below</p>
+          <h1>GIF VOTE</h1>
+          <p>Tap to vote for your favorite gif below</p>
           {this.renderLeaderboardLink()}
-          {!_.isEmpty(emojiList) ? null : <div>Loading emoji...</div>}
+          {!_.isEmpty(emojiList) ? null : <div>Loading gif...</div>}
 
           <div className="emoji-list">
             {this.renderEmojiList(emojiList)}
@@ -131,6 +132,7 @@ export default class Vote extends React.Component {
         containerClass="background"
       />;
     } else {
+      let url = this.state.selectedEmoji.unicode.replace("https://media2.giphy.com/media/", "gifs/");
       let contents = (
         <div>
           <p>See how you stack up against others</p>
@@ -138,9 +140,12 @@ export default class Vote extends React.Component {
           <Link to="/" onClick={this.resetState}><div className="btn btn-white">Pick another one</div></Link>
         </div>
       );
+      let headline = (
+          <img src={url}></img>
+      );
       return <EmojiVotoPage
         preHeadline={<h1>You picked:</h1>}
-        headline={this.state.selectedEmoji.unicode}
+        headline={headline}
         contents={contents}
         containerClass ="background"
       />;

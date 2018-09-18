@@ -148,7 +148,7 @@ class App {
       <html>
         <head>
           <meta charset="UTF-8">
-          <title>Emoji Vote</title>
+          <title>Gif Vote</title>
           <link rel="icon" href="/img/favicon.ico">
           <!-- Global site tag (gtag.js) - Google Analytics -->
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-60040560-4"></script>
@@ -176,6 +176,7 @@ module.exports.create = async(webPort, webpackDevServerHost, indexBundle, emojiC
   app.set('port', webPort);
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.static('assets'));
   app.use('/', routes);
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

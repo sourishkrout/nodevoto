@@ -8,6 +8,7 @@
     "unit-tests": "NODE_ENV=test node_modules/mocha/bin/_mocha test/**/*.test.js",
     "lint": "node_modules/.bin/eslint . --max-warnings=0 --report-unused-disable-directives",
     "generateEmojiCodeMap": "node scripts/generateEmojiCodeMap.js",
+    "generateGiphyMap": "node scripts/generateGiphyMap.js",
     "voting": "node services/nodevoto-voting/server.js",
     "emoji": "node services/nodevoto-emoji/server.js",
     "web": "node services/nodevoto-web/server.js",

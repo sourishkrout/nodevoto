@@ -38,7 +38,7 @@ class PollServiceServer {
       callback(null, results);
     };
 
-    implementations.VotePoop = (call, callback) => {
+    implementations.VoteMusicchoiceCuteExcited = (call, callback) => {
       callback(new Error('Unkown error'), null);
     };
 

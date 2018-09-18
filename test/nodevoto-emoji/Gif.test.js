@@ -1,26 +1,26 @@
 'use strict';
 const expect = require('chai').expect;
-const Emoji = require('../../services/nodevoto-emoji/Emoji');
-const emojiCodeMap = require('../../lib/emoji_codemap.json');
+const Gif = require('../../services/nodevoto-emoji/Gif');
+const gifCodeMap = require('../../lib/gif_codemap.json');
 
-describe('Emoji', () => {
-  let emoji;
+describe('Gif', () => {
+  let gif;
   beforeEach(async() => {
-    emoji = new Emoji();
+    gif = new Gif();
   });
 
   describe('#getByShortcode', () => {
 
-    it('should return skull&crossbones for specific shortcode', async() => {
-      let _em = emoji.getByShortcode(':skull_and_crossbones:');
+    it('should return VoteLoveArtCute for specific shortcode', async() => {
+      let _em = gif.getByShortcode(':love-art-cute-l0HU2sYgCZh3HiKnS:');
 
-      expect(_em.unicode).equals('☠️');
-      expect(_em.shortcode).equals(':skull_and_crossbones:');
+      expect(_em.unicode).equals('https://media1.giphy.com/media/l0HU2sYgCZh3HiKnS/100w.gif');
+      expect(_em.shortcode).equals(':love-art-cute-l0HU2sYgCZh3HiKnS:');
     });
 
     it('should return null when shortcode does not match entries', async() => {
       let _ems = [':non_existent:', ':made_up:',
-        ':nobody_here:', ':kthxbai:'].map(emoji.getByShortcode.bind(emoji));
+        ':nobody_here:', ':kthxbai:'].map(gif.getByShortcode.bind(gif));
 
       _ems.map(_em => {
         expect(_em).equal(null);
@@ -31,32 +31,32 @@ describe('Emoji', () => {
 
   describe('#getList', () => {
 
-    it('should return a list of all emojis', async() => {
-      let results = emoji.getList();
+    it('should return a list of all gifs', async() => {
+      let results = gif.getList();
 
       expect(results).not.equal(null);
-      expect(results[10].unicode).equal('\u2620\ufe0f');
-      expect(results[10].shortcode).equal(':skull_and_crossbones:');
-      expect(results.length).equal(100);
+      expect(results[10].unicode).equal('https://media1.giphy.com/media/3o7absbD7PbTFQa0c8/100w.gif');
+      expect(results[10].shortcode).equal(':spongebob-cartoon-nickelodeon-thumbs-3o7absbD7PbTFQa0c8:');
+      expect(results.length).equal(88);
     });
 
-    it('should have all emoji from the generated code map', async() => {
-      let all = new Set(emoji.getList());
-      let emojiMap = new Map();
+    it('should have all gif from the generated code map', async() => {
+      let all = new Set(gif.getList());
+      let gifMap = new Map();
 
       all.forEach(_em => {
-        emojiMap.set(_em.unicode, true);
+        gifMap.set(_em.unicode, true);
       });
 
-      let res = emoji.top100Emoji.map(code => {
-        return emojiMap.has(emojiCodeMap[code]);
+      let res = gif.topGif.map(code => {
+        return gifMap.has(gifCodeMap[code].src);
       }).reduce((prev, curr) => { return prev && curr; }, true);
 
       expect(res).equals(true);
     });
 
-    it('should be free of duplicate emoji.', async() => {
-      let list = emoji.getList();
+    it('should be free of duplicate gif.', async() => {
+      let list = gif.getList();
 
       let counted = list.reduce((prev, curr) => {
         let count = prev.get(curr.unicode) || 0;

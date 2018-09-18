@@ -21,6 +21,9 @@ const testMap = [
     unicode: '🐷',
     shortcode: ':pig:'
   },{
+    unicode: 'https://media3.giphy.com/media/mv2Txel3lmlA2tjlch/100w.gif',
+    shortcode: ':sandiegozoo-mv2Txel3lmlA2tjlch:'
+  },{
     unicode: '💩',
     shortcode: ':poop:'
   }
@@ -65,21 +68,26 @@ class VotingMock {
     this.results = res;
   }
 
-  Results (args, callback) {
+  Results(args, callback) {
     return callback(null, { results: this.results });
   }
 
-  VoteGhost (args, callback) {
+  VoteGhost(args, callback) {
     this.inc(':ghost:');
     return callback(null);
   }
 
-  VotePoop (args, callback) {
+  VotePoop(args, callback) {
     return callback('Unkown error', null);
+  }
+
+  VoteSandiegozoo(args, callback) {
+    this.inc(':sandiegozoo-mv2Txel3lmlA2tjlch:');
+    return callback(null);
   }
 }
 
-describe('app', () => {
+describe('app (web)', () => {
   let web;
   let server;
   let emoji;
@@ -105,11 +113,11 @@ describe('app', () => {
   });
 
   describe('#handleVoteEmoji', () => {
-    it('should return 200 for valid :ghost: emoji', async() => {
-      let response = await superget(`http://127.0.0.1:${WEB_PORT}/api/vote?choice=:ghost:`);
+    it('should return 200 for valid :sandiegozoo-mv2Txel3lmlA2tjlch: emoji', async() => {
+      let response = await superget(`http://127.0.0.1:${WEB_PORT}/api/vote?choice=:sandiegozoo-mv2Txel3lmlA2tjlch:`);
 
       expect(response.status).equals(200);
-      expect(voting.get(':ghost:')).equals(1);
+      expect(voting.get(':sandiegozoo-mv2Txel3lmlA2tjlch:')).equals(1);
     });
 
     it('should reject vote for :poop: emoji', async() => {

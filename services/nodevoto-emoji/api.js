@@ -3,17 +3,17 @@
 const path = require('path');
 const protoLoader = require('@grpc/proto-loader');
 
-class EmojiServiceServer {
-  constructor(emoji) {
-    this.emoji = emoji;
+class GifServiceServer {
+  constructor(gif) {
+    this.gif = gif;
   }
 
   getByShortcode(shortcode) {
-    return this.emoji.getByShortcode(shortcode);
+    return this.gif.getByShortcode(shortcode);
   }
 
   getList() {
-    return this.emoji.getList();
+    return this.gif.getList();
   }
 
   mapRPC() {
@@ -25,15 +25,15 @@ class EmojiServiceServer {
     };
 
     implementations.FindByShortcode = (call, callback) => {
-      let emoji = { Emoji: this.getByShortcode(call.request.Shortcode) };
-      callback(null, emoji);
+      let gif = { Emoji: this.getByShortcode(call.request.Shortcode) };
+      callback(null, gif);
     };
 
     return implementations;
   }
 }
 
-module.exports.newGrpcServer = async (grpcServer, emoji) => {
+module.exports.newGrpcServer = async (grpcServer, gif) => {
   const PROTO_PATH = path.join(__dirname + '../../../proto/Emoji.proto');
 
   let descriptor = await protoLoader.load(
@@ -47,7 +47,7 @@ module.exports.newGrpcServer = async (grpcServer, emoji) => {
     });
 
   let emojiSvc = descriptor['emojivoto.v1.EmojiService'];
-  let emojiSrv = new EmojiServiceServer(emoji);
+  let emojiSrv = new GifServiceServer(gif);
   let implementations = emojiSrv.mapRPC();
 
   grpcServer.addService(emojiSvc, implementations);

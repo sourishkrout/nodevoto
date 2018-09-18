@@ -27,9 +27,10 @@ export default class Leaderboard extends React.Component {
 
   renderLeaderboard() {
     return _.map(this.state.leaderboard, (emoji, i) => {
+      let url = emoji.unicode.replace("https://media2.giphy.com/media/", "gifs/");
       return (
         <div className="emoji" key={`emoji-${i}`} title={`${emoji.votes} votes`}>
-          <div>{emoji.unicode}</div>
+          <div><img src={url}></img></div>
           { emoji.votes > 0 ? <div className="counter">{emoji.votes}</div> : null}
         </div>
       );
@@ -43,7 +44,7 @@ export default class Leaderboard extends React.Component {
           <div className="row">
             <div className="col-md-12">
               {!this.state.error ? null : <div className="error">Error loading leaderboard.</div>}
-              <h1>EMOJI VOTE LEADERBOARD </h1>
+              <h1>GIF VOTE LEADERBOARD </h1>
               <Link to="/"><div className="btn btn-blue">Vote on your favorite</div></Link>
               <div className="emoji-list">{this.renderLeaderboard()}
                 <div className="footer-text">

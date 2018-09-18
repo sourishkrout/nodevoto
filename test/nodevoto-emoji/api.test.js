@@ -1,6 +1,6 @@
 'use strict';
 const api = require('../../services/nodevoto-emoji/api');
-const Emoji = require('../../services/nodevoto-emoji/Emoji');
+const Gif = require('../../services/nodevoto-emoji/Gif');
 
 const grpc = require('grpc');
 
@@ -24,14 +24,14 @@ const wrapArg = (arg) => {
   return { 'request': { 'Shortcode': arg } };
 };
 
-describe('api', () => {
+describe('api (emoji)', () => {
   let impls;
 
   beforeEach(async() => {
     const server = new grpc.Server();
-    const emoji = new Emoji();
+    const gif = new Gif();
 
-    impls = await api.newGrpcServer(server, emoji);
+    impls = await api.newGrpcServer(server, gif);
   });
 
   describe('#newGrpcServer', () => {
@@ -46,32 +46,32 @@ describe('api', () => {
 
   describe('implementation', () => {
 
-    it('should return all emojis when ListAll is called', async() => {
+    it('should return all gifs when ListAll is called', async() => {
       let response = await wrap(impls.ListAll)();
 
-      expect(response.list.length).equals(100);
+      expect(response.list.length).equals(88);
 
-      expect(response.list[5].unicode).equals('🤑');
-      expect(response.list[5].shortcode).equals(':money_mouth_face:');
+      expect(response.list[5].unicode).equals('https://media3.giphy.com/media/3oKIPlAKUjRpoc3duw/100w.gif');
+      expect(response.list[5].shortcode).equals(':gotham-foxtv-fox-broadcasting-3oKIPlAKUjRpoc3duw:');
     });
 
-    it('should return emoji for valid shortcode', async() => {
+    it('should return gif for valid shortcode', async() => {
       let findByShortcode = wrap(impls.FindByShortcode);
-      let found = (await findByShortcode(wrapArg(':money_mouth_face:'))).Emoji;
+      let found = (await findByShortcode(wrapArg(':ussoccer-funny-lol-95Euu3wrLljyg:'))).Emoji;
 
       expect(found).not.to.equal(null);
-      expect(found.unicode).equals('🤑');
-      expect(found.shortcode).equals(':money_mouth_face:');
+      expect(found.unicode).equals('https://media1.giphy.com/media/95Euu3wrLljyg/100w.gif');
+      expect(found.shortcode).equals(':ussoccer-funny-lol-95Euu3wrLljyg:');
     });
 
-    it('should find emojis for all shortcodes', async() => {
+    it('should find gifs for all shortcodes', async() => {
       let list = (await wrap(impls.ListAll)()).list;
       let findByShortcode = wrap(impls.FindByShortcode);
 
-      let all = list.map(emoji => {
-        return findByShortcode(wrapArg(emoji.shortcode)).then(found => {
-          return found.Emoji.unicode === emoji.unicode
-            && found.Emoji.shortcode === emoji.shortcode;
+      let all = list.map(gif => {
+        return findByShortcode(wrapArg(gif.shortcode)).then(found => {
+          return found.Emoji.unicode === gif.unicode
+            && found.Emoji.shortcode === gif.shortcode;
         });
       });
 

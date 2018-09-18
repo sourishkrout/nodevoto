@@ -97,7 +97,7 @@ a {
   padding-top: 2vw;
   height: 100%;
   min-height: 100vh;
-  background: linear-gradient(124deg, #9B51E0 0%, #FF009B 23.76%, #F2C94C 47.51%, #2F80ED 78.45%, #219653 100%);
+  background: linear-gradient(124deg, #F0E4CA 0%, #FC7D5F 23.76%, #71465A 47.51%, #2E5B8B 78.45%, #4C4A45 100%);
   background-size: 500% 500%;
   -webkit-animation: rainbow 12s ease infinite;
   -z-animation: rainbow 12s ease infinite;
@@ -160,13 +160,11 @@ h1 .title {
 }
 
 .emoji {
-  border-radius: 50%;
   font-size: 2rem;
   float: left;
-  height: 50px;
-  width: 50px;
-  padding: 5px;
-  line-height: 3.2rem;
+  width: 100px;
+  padding: 2px;
+  line-height: 180px;
 }
 
 .emoji-votable {
@@ -260,14 +258,10 @@ h1 .title {
   }
 
   .emoji {
-    border-radius: 50%;
-    margin: 30px 4px 30px 4px;
     font-size: 3rem;
     float: left;
-    height: 85px;
-    width: 85px;
-    padding: 5px;
-    line-height: 5.4rem;
+    width: 120px;
+    line-height: 210px;
   }
 }
 
