@@ -70,7 +70,6 @@ class Gif {
       ':universityofkansas-cool-sunglasses-26BGG0Vj4nulivlO8:',
       ':funny-gif-artist-g-u0aCCHXiIOXA9fHOEB:',
       ':nfl-smith-trequan-tre-quan-OkjN1aAB7z7njXRLdr:',
-      ':nfl-baker-mayfield-182RV9ta1F6v1iXhHl:',
       ':love-kiss-heart-xUOwGeHJEQ46pdsvWE:',
       ':studiosoriginals-valentines-day-happy-l3q2LJoEChm4UE7FS:',
       ':kawaii-dumpster-fire-1wXeLxuTVBZe0Ht7Zu:',

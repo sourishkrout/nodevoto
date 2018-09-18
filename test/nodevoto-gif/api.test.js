@@ -49,7 +49,7 @@ describe('api (gif)', () => {
     it('should return all gifs when ListAll is called', async() => {
       let response = await wrap(impls.ListAll)();
 
-      expect(response.list.length).equals(86);
+      expect(response.list.length).equals(85);
 
       expect(response.list[5].url).equals('https://media3.giphy.com/media/3oKIPlAKUjRpoc3duw/100w.gif');
       expect(response.list[5].shortcode).equals(':gotham-foxtv-fox-broadcasting-3oKIPlAKUjRpoc3duw:');

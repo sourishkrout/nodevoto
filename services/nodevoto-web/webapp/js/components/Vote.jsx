@@ -64,7 +64,7 @@ export default class Vote extends React.Component {
 
   renderGifList(gifs) {
     return _.map(gifs, (gif, i) => {
-      let url = gif.url.replace("https://media2.giphy.com/media/", "gifs/");
+      let url = `gifs/${gif.url.substr(gif.url.indexOf(".giphy.com/media/")+17)}`;
       return (
         <div
           className="gif gif-votable"
@@ -132,7 +132,7 @@ export default class Vote extends React.Component {
         containerClass="background"
       />;
     } else {
-      let url = this.state.selectedGif.url.replace("https://media2.giphy.com/media/", "gifs/");
+      let url = `gifs/${this.state.selectedGif.url.substr(this.state.selectedGif.url.indexOf(".giphy.com/media/")+17)}`;
       let contents = (
         <div>
           <p>See how you stack up against others</p>

@@ -75,7 +75,6 @@ service VotingService {
     rpc VoteNewGirlNewGirlJessDayNewgirl (VoteRequest) returns (VoteResponse);
     rpc VoteNext (VoteRequest) returns (VoteResponse);
     rpc VoteNfl (VoteRequest) returns (VoteResponse);
-    rpc VoteNflBakerMayfield (VoteRequest) returns (VoteResponse);
     rpc VoteNflSmithTrequanTreQuan (VoteRequest) returns (VoteResponse);
     rpc VoteOscarsAcademyAwards1997 (VoteRequest) returns (VoteResponse);
     rpc VoteOxygenmediaSideEyeNoYouDidntDeitrickHaddon (VoteRequest) returns (VoteResponse);
@@ -98,6 +97,7 @@ service VotingService {
     rpc VoteThanksThankyouOmerismos (VoteRequest) returns (VoteResponse);
     rpc VoteThebacheloretteDanceKiss (VoteRequest) returns (VoteResponse);
     rpc VoteThephizzogs (VoteRequest) returns (VoteResponse);
+    rpc VoteTheXFiles (VoteRequest) returns (VoteResponse);
     rpc VoteThisisgiphyReactionAudience (VoteRequest) returns (VoteResponse);
     rpc VoteTommywiseauFootballSuperBowl (VoteRequest) returns (VoteResponse);
     rpc VoteUniversityofkansasCoolSunglasses (VoteRequest) returns (VoteResponse);
