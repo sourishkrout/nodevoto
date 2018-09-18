@@ -41661,7 +41661,7 @@ var Vote = function (_React$Component) {
       var _this4 = this;
 
       return _lodash2.default.map(gifs, function (gif, i) {
-        var url = gif.url.replace("https://media2.giphy.com/media/", "gifs/");
+        var url = 'gifs/' + gif.url.substr(gif.url.indexOf(".giphy.com/media/") + 17);
         return _react2.default.createElement(
           'div',
           {
@@ -41801,7 +41801,7 @@ var Vote = function (_React$Component) {
           containerClass: 'background'
         });
       } else {
-        var url = this.state.selectedGif.url.replace("https://media2.giphy.com/media/", "gifs/");
+        var url = 'gifs/' + this.state.selectedGif.url.substr(this.state.selectedGif.url.indexOf(".giphy.com/media/") + 17);
         var _contents2 = _react2.default.createElement(
           'div',
           null,
