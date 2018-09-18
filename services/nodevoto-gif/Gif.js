@@ -49,7 +49,6 @@ class Gif {
       ':ussoccer-funny-lol-95Euu3wrLljyg:',
       ':justviralnet-funny-kid-5ZZSYqvcH6QppFQGI5:',
       ':airplane-i-am-serious-surely-you-cant-be-3oEjHLzm4BCF8zfPy0:',
-      ':studiosoriginals-3o7btXv9i4Pnjb1m0w:',
       ':new-girl-new-girl-jess-day-newgirl-l4HofcnCafWVp7z9e:',
       ':jaydenbartels-jayden-bartels-5QLy2hJlQAsrm7ycdq:',
       ':bestfriends-3ohhwhGY6WXtejX86k:',
