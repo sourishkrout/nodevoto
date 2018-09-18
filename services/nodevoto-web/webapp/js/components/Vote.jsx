@@ -120,7 +120,7 @@ export default class Vote extends React.Component {
 
             <div className="footer-text">
               <p>A <a href='https://buoyant.io'>Buoyant</a> social experiment</p>
-              <p>Checkout <a href='/api-docs'>API docs</a> for REST reference</p>
+              <p>Check out the <a href='/api-docs'>API docs</a> for REST reference</p>
               <p>© 2018 Buoyant, Inc. All Rights Reserved.</p>
             </div>
           </div>
