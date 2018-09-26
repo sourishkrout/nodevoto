@@ -41789,7 +41789,7 @@ var Vote = function (_React$Component) {
               _react2.default.createElement(
                 'p',
                 null,
-                'Checkout ',
+                'Check out the ',
                 _react2.default.createElement(
                   'a',
                   { href: '/api-docs' },
