@@ -11,11 +11,11 @@ describe('Gif', () => {
 
   describe('#getByShortcode', () => {
 
-    it('should return VoteLoveArtCute for specific shortcode', async() => {
-      let _em = gif.getByShortcode(':love-art-cute-l0HU2sYgCZh3HiKnS:');
+    it('should return VoteCookieMonsterAtari2600 for specific shortcode', async() => {
+      let _em = gif.getByShortcode(':cookie-monster-atari-2600-lMcMve6tL1AM8:');
 
-      expect(_em.url).equals('https://media1.giphy.com/media/l0HU2sYgCZh3HiKnS/100w.gif');
-      expect(_em.shortcode).equals(':love-art-cute-l0HU2sYgCZh3HiKnS:');
+      expect(_em.url).equals('https://media2.giphy.com/media/lMcMve6tL1AM8/100w.gif');
+      expect(_em.shortcode).equals(':cookie-monster-atari-2600-lMcMve6tL1AM8:');
     });
 
     it('should return null when shortcode does not match entries', async() => {
@@ -35,9 +35,9 @@ describe('Gif', () => {
       let results = gif.getList();
 
       expect(results).not.equal(null);
-      expect(results[10].url).equal('https://media1.giphy.com/media/3o7absbD7PbTFQa0c8/100w.gif');
-      expect(results[10].shortcode).equal(':spongebob-cartoon-nickelodeon-thumbs-3o7absbD7PbTFQa0c8:');
-      expect(results.length).equal(85);
+      expect(results[10].url).equal('https://media1.giphy.com/media/6NRH8IXqSNgL6/100w.gif');
+      expect(results[10].shortcode).equal(':sleepy-while-also-6NRH8IXqSNgL6:');
+      expect(results.length).equal(95);
     });
 
     it('should have all gif from the generated code map', async() => {

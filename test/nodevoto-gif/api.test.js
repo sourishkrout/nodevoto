@@ -49,19 +49,19 @@ describe('api (gif)', () => {
     it('should return all gifs when ListAll is called', async() => {
       let response = await wrap(impls.ListAll)();
 
-      expect(response.list.length).equals(85);
+      expect(response.list.length).equals(95);
 
-      expect(response.list[5].url).equals('https://media3.giphy.com/media/3oKIPlAKUjRpoc3duw/100w.gif');
-      expect(response.list[5].shortcode).equals(':gotham-foxtv-fox-broadcasting-3oKIPlAKUjRpoc3duw:');
+      expect(response.list[5].url).equals('https://media3.giphy.com/media/3o6ozgge4UJklqLgIg/100w.gif');
+      expect(response.list[5].shortcode).equals(':findingdory-finding-dory-nemo-3o6ozgge4UJklqLgIg:');
     });
 
     it('should return gif for valid shortcode', async() => {
       let findByShortcode = wrap(impls.FindByShortcode);
-      let found = (await findByShortcode(wrapArg(':ussoccer-funny-lol-95Euu3wrLljyg:'))).Gif;
+      let found = (await findByShortcode(wrapArg(':gifnewstest-artists-on-tumblr-csaba-klement-xITOFYCXsbQM8:'))).Gif;
 
       expect(found).not.to.equal(null);
-      expect(found.url).equals('https://media1.giphy.com/media/95Euu3wrLljyg/100w.gif');
-      expect(found.shortcode).equals(':ussoccer-funny-lol-95Euu3wrLljyg:');
+      expect(found.url).equals('https://media3.giphy.com/media/xITOFYCXsbQM8/100w.gif');
+      expect(found.shortcode).equals(':gifnewstest-artists-on-tumblr-csaba-klement-xITOFYCXsbQM8:');
     });
 
     it('should find gifs for all shortcodes', async() => {

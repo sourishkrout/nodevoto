@@ -33,10 +33,10 @@ describe('api (voting)', () => {
   describe('#newGrpcServer', () => {
     it('should return implemenations of RPC operations', async() => {
 
-      expect(Object.entries(impls).length).equals(86);
-      expect(impls.VoteMusicchoiceCuteExcited).not.equal(null);
-      expect(impls.VoteFacethetruthtv).not.equal(null);
-      expect(impls.VoteLego).not.equal(null);
+      expect(Object.entries(impls).length).equals(96);
+      expect(impls.VoteCartoonRugrats).not.equal(null);
+      expect(impls.VoteLoveStupidFinn).not.equal(null);
+      expect(impls.VoteWillReasonsFine).not.equal(null);
       expect(impls.Results).not.equal(null);
     });
 
@@ -44,30 +44,32 @@ describe('api (voting)', () => {
 
   describe('implementation', () => {
 
-    it('should return error when VoteMusicchoiceCuteExcited is called', async() => {
+    it('should return error when VoteCartoonHalloweenGhost is called', async() => {
       try {
-        await wrap(impls.VoteMusicchoiceCuteExcited)();
+        await wrap(impls.VoteCartoonHalloweenGhost)();
       } catch(err) {
         expect(err.message).equals('Unkown error');
       }
     });
 
-    it('should relay two votes to Poll when VoteLego is called twice', async() => {
-      await wrap(impls.VoteLego)();
-      await wrap(impls.VoteLego)();
+    it('should relay two votes to Poll when VotePokemonHighFive is called twice', async() => {
+      await wrap(impls.VotePokemonHighFive)();
+      await wrap(impls.VotePokemonHighFive)();
       let response = await wrap(impls.Results)();
 
       expect(response.results).not.equal(null);
       expect(response.results.length).greaterThan(0);
-      expect(response.results[0].Shortcode).equals(':lego-l4q7VhGsL6BnXJrc4:');
+      expect(response.results[0].Shortcode).equals(':pokemon-high-five-gQ8qWas3GxlPq:');
       expect(response.results[0].Votes).equals(2);
     });
 
     it('should return an ordered list when Results is called', async() => {
-      let cbs = ['VoteSza', 'VoteJustviralnetFunnyKid', 'VoteDanceBeyonce',
-        'VoteHeyviolet', 'VoteJustviralnetFunnyKid', 'VoteDanceBeyonce', 'VoteJustviralnetFunnyKid',
-        'VoteDanceBeyonce', 'VoteReactionMood', 'VoteHeyviolet', 'VoteSza',
-        'VoteThephizzogs', 'VoteJustviralnetFunnyKid'].map(op => {
+      let cbs = ['VoteSesameStreetSoniaSotomayor', 'VoteSesameStreetSoniaSotomayor',
+        'VoteSleepyWhileAlso', 'VoteSleepyWhileAlso', 'VoteSleepyWhileAlso',
+        'Vote30s1934SillySymphonies', 'Vote30s1934SillySymphonies',
+        'VoteDisneyzootopia',
+        'VoteCat', 'VoteCat', 'VoteCat', 'VoteCat', 'VoteCat', 'VoteCat',
+        'VoteWillReasonsFine', 'VoteWillReasonsFine', 'VoteWillReasonsFine'].map(op => {
         wrap(impls[op])();
       });
 
@@ -77,9 +79,9 @@ describe('api (voting)', () => {
       expect(response.results).not.equal(null);
       expect(response.results.length).equals(6);
 
-      expect(response.results[0].Shortcode).equal(':justviralnet-funny-kid-5ZZSYqvcH6QppFQGI5:');
-      expect(response.results[0].Votes).equal(4);
-      expect(response.results[5].Shortcode).equal(':thephizzogs-l3q2VIWn4W0z1rfos:');
+      expect(response.results[0].Shortcode).equal(':cat-j1QQj6To9Pbxu:');
+      expect(response.results[0].Votes).equal(6);
+      expect(response.results[5].Shortcode).equal(':disneyzootopia-xT9DPxggC8w6kCWVY4:');
       expect(response.results[5].Votes).equal(1);
     });
   });

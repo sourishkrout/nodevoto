@@ -44,9 +44,9 @@ if (WEB_HOST !== null && WEB_HOST !== '') {
       let shortcodes = await getShortcodes(WEB_URL);
 
       if (probability < 0.15) {
-        response = vote(WEB_URL, ':jaydenbartels-jayden-bartels-5QLy2hJlQAsrm7ycdq:');
+        response = vote(WEB_URL, ':disney-puppy-puppies-national-day-UTuy9luZStALS:');
       } else if (probability < 0.35) {
-        response = vote(WEB_URL, ':musicchoice-cute-excited-3og0IPacuEoA6BBTUI:');
+        response = vote(WEB_URL, ':cartoon-halloween-ghost-aTf4PONtSYB1e:');
       } else if (shortcodes !== undefined) {
         let random = shortcodes[Math.floor(Math.random()*10000) % shortcodes.length].shortcode;
         response = vote(WEB_URL, random);

@@ -21,11 +21,11 @@ const testMap = [
     url: '🐷',
     shortcode: ':pig:'
   },{
-    url: 'https://media3.giphy.com/media/mv2Txel3lmlA2tjlch/100w.gif',
-    shortcode: ':sandiegozoo-mv2Txel3lmlA2tjlch:'
+    url: 'https://media2.giphy.com/media/rR29jBsTB3lZe/100w.gif',
+    shortcode: ':batman-sad-rain-rR29jBsTB3lZe:'
   },{
-    url: '💩',
-    shortcode: ':poop:'
+    url: 'https://media1.giphy.com/media/aTf4PONtSYB1e/100w.gif',
+    shortcode: ':cartoon-halloween-ghost-aTf4PONtSYB1e:'
   }
 ];
 
@@ -77,12 +77,12 @@ class VotingMock {
     return callback(null);
   }
 
-  VotePoop(args, callback) {
+  VoteCartoonHalloweenGhost(args, callback) {
     return callback('Unkown error', null);
   }
 
-  VoteSandiegozoo(args, callback) {
-    this.inc(':sandiegozoo-mv2Txel3lmlA2tjlch:');
+  VoteBatmanSadRain(args, callback) {
+    this.inc(':batman-sad-rain-rR29jBsTB3lZe:');
     return callback(null);
   }
 }
@@ -113,16 +113,16 @@ describe('app (web)', () => {
   });
 
   describe('#handleVoteGif', () => {
-    it('should return 200 for valid :sandiegozoo-mv2Txel3lmlA2tjlch: gif', async() => {
-      let response = await superget(`http://127.0.0.1:${WEB_PORT}/api/vote?choice=:sandiegozoo-mv2Txel3lmlA2tjlch:`);
+    it('should return 200 for valid :batman-sad-rain-rR29jBsTB3lZe: gif', async() => {
+      let response = await superget(`http://127.0.0.1:${WEB_PORT}/api/vote?choice=:batman-sad-rain-rR29jBsTB3lZe:`);
 
       expect(response.status).equals(200);
-      expect(voting.get(':sandiegozoo-mv2Txel3lmlA2tjlch:')).equals(1);
+      expect(voting.get(':batman-sad-rain-rR29jBsTB3lZe:')).equals(1);
     });
 
-    it('should reject vote for :poop: gif', async() => {
+    it('should reject vote for :cartoon-halloween-ghost-aTf4PONtSYB1e: gif', async() => {
       try {
-        let response = await superget(`http://127.0.0.1:${WEB_PORT}/api/vote?choice=:poop:`);
+        let response = await superget(`http://127.0.0.1:${WEB_PORT}/api/vote?choice=:cartoon-halloween-ghost-aTf4PONtSYB1e:`);
         expect(response).to.equal(null);
       } catch(err) {
         expect(err.status).equals(500);
