@@ -78,7 +78,7 @@ class VotingMock {
   }
 
   VoteCartoonHalloweenGhost(args, callback) {
-    return callback('Unkown error', null);
+    return callback('Unknown error', null);
   }
 
   VoteBatmanSadRain(args, callback) {

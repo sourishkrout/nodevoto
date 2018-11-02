@@ -39,7 +39,7 @@ class PollServiceServer {
     };
 
     implementations.VoteCartoonHalloweenGhost = (call, callback) => {
-      callback(new Error('Unkown error'), null);
+      callback(new Error('Unknown error'), null);
     };
 
     return implementations;
