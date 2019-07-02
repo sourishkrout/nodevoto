@@ -1,6 +1,6 @@
 {
   "name": "nodevoto",
-  "version": "0.0.1",
+  "version": "5.3.0",
   "description": "Node.js implementation of emojivoto with gifs instead of emojis",
   "main": "index.js",
   "scripts": {
@@ -24,8 +24,10 @@
     "grpc": "^1.14.1",
     "superagent": "^3.8.3",
     "swagger-ui-express": "^4.0.1",
+    "lodash": ">=4.17.11",
     "winston": "^3.1.0",
-    "yamljs": "^0.3.0"
+    "yamljs": "^0.3.0",
+    "js-yaml": ">=3.13.1"
   },
   "devDependencies": {
     "eslint": "^5.4.0",
